@@ -7,11 +7,12 @@
 # 
 # Host: localhost (MySQL Community Server - GPL 8.4.5)
 # Database: QuanLiThuVienHVNH
-# Generation time: 2025-04-21T08:54:21+07:00
+# Generation time: 2025-04-21T10:43:34+07:00
 # ************************************************************
 
 CREATE Database QuanLiThuVienHVNH;
 USE QuanLiThuVienHVNH;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -124,12 +125,15 @@ DROP TABLE IF EXISTS `tblPhieuMuon`;
 
 CREATE TABLE `tblPhieuMuon` (
   `Maphieumuon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Ngaymuon` date NOT NULL,
+  `Ngaymuon` datetime NOT NULL,
   `Hantrasach` date NOT NULL,
   `Manguoimuon` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Manhanvien` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Maphieumuon`),
   KEY `FK_Phieumuon_Nguoimuon` (`Manguoimuon`),
-  CONSTRAINT `FK_Phieumuon_Nguoimuon` FOREIGN KEY (`Manguoimuon`) REFERENCES `tblNguoiMuon` (`Manguoimuon`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `FK_Phieumuon_Nhanvien` (`Manhanvien`),
+  CONSTRAINT `FK_Phieumuon_Nguoimuon` FOREIGN KEY (`Manguoimuon`) REFERENCES `tblNguoiMuon` (`Manguoimuon`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Phieumuon_Nhanvien` FOREIGN KEY (`Manhanvien`) REFERENCES `tblNhanVien` (`Manhanvien`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -143,12 +147,16 @@ DROP TABLE IF EXISTS `tblPhieuPhat`;
 
 CREATE TABLE `tblPhieuPhat` (
   `Maphieuphat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Ghichu` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `Manguoimuon` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Tienphat` decimal(10,0) NOT NULL,
+  `Manguoimuon` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Manhanvien` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Thoigianphat` datetime NOT NULL,
+  `Ghichu` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`Maphieuphat`),
   KEY `FK_Phieuphat_Nguoimuon` (`Manguoimuon`),
-  CONSTRAINT `FK_Phieuphat_Nguoimuon` FOREIGN KEY (`Manguoimuon`) REFERENCES `tblNguoiMuon` (`Manguoimuon`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `FK_Phieuphat_Nhanvien` (`Manhanvien`),
+  CONSTRAINT `FK_Phieuphat_Nguoimuon` FOREIGN KEY (`Manguoimuon`) REFERENCES `tblNguoiMuon` (`Manguoimuon`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_Phieuphat_Nhanvien` FOREIGN KEY (`Manhanvien`) REFERENCES `tblNhanVien` (`Manhanvien`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -236,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-# Dump completed on 2025-04-21T08:54:22+07:00
+# Dump completed on 2025-04-21T10:43:34+07:00
