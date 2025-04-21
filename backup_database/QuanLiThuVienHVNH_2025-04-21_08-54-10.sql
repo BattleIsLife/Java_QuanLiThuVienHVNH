@@ -10,6 +10,8 @@
 # Generation time: 2025-04-21T08:54:21+07:00
 # ************************************************************
 
+CREATE DATABASE QuanLiThuVienHVNH;
+USE QuanLiThuVienHVNH;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
