@@ -3,6 +3,7 @@ package Model;
 public class Sach {
     private String maSach;
     private String tenSach;
+    private String maTheLoai;
     private String maTacGia;
     private String maNXB;
     private float giaSach;
@@ -15,10 +16,11 @@ public class Sach {
 
     }
 
-    public Sach(String maSach, String tenSach, String maTacGia, String maNXB, float giaSach, int soLuong, String anh, String ghiChu)
+    public Sach(String maSach, String tenSach, String maTheLoai, String maTacGia, String maNXB, float giaSach, int soLuong, String anh, String ghiChu)
     {
         this.maSach = maSach;
         this.tenSach = tenSach;
+        this.maTheLoai = maTheLoai;
         this.maTacGia = maTacGia;
         this.maNXB = maNXB;
         this.giaSach = giaSach;
@@ -41,6 +43,14 @@ public class Sach {
 
     public void setTenSach(String tenSach) {
         this.tenSach = tenSach;
+    }
+
+    public String getMaTheLoai() {
+        return maTheLoai;
+    }
+
+    public void setMaTheLoai(String maTheLoai) {
+        this.maTheLoai = maTheLoai;
     }
 
     public String getMaTacGia() {
