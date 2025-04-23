@@ -19,9 +19,7 @@ public class JDBC_Util {
             String username = "root";
             String password = "27092004";
             c = DriverManager.getConnection(url, username, password);
-            System.out.println("Kết nối thành công");
         } catch (SQLException e) {
-            System.out.println("Kết nối thất bại");
             e.printStackTrace();
         }
         return c;
@@ -31,7 +29,7 @@ public class JDBC_Util {
     {
         try {
             if (c != null)
-            System.out.println("Đóng kết nối");
+            // System.out.println("Đóng kết nối");
                 c.close();
         } catch (SQLException e) {
             e.printStackTrace();
