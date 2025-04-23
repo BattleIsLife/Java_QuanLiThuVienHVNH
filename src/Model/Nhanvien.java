@@ -11,13 +11,24 @@ public class Nhanvien {
     private String email;
     private String SDT;
     private String chucVu;
+    private String matKhau;
+    private PermissionLevel quyenHan;
+
+    public enum PermissionLevel {
+        NONE, NHANVIEN, ADMIN;
+    }
+
+    //NONE: Không được xem bất kì cái gì, chỉ được xem, sửa thông tin của bản thân
+    //NHANVIEN: Bao gồm quyền hạn mức NONE, được xem thông tin sách, tác giả, thể loại, NXB, 
+    //          được thêm phiều mượn và phiếu phạt, không được xem danh sách các nhân viên khác
+    //ADMIN: Toàn quyền thêm, sửa, xóa
 
     public Nhanvien()
     {
 
     }
 
-    public Nhanvien(String maNhanVien, String tenNhanVien, Date ngaySinh, String gioiTinh, String diaChi, String email, String SDT, String chucVu)
+    public Nhanvien(String maNhanVien, String tenNhanVien, Date ngaySinh, String gioiTinh, String diaChi, String email, String SDT, String chucVu, String matKhau, PermissionLevel quyenHan)
     {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
@@ -27,6 +38,8 @@ public class Nhanvien {
         this.email = email;
         this.SDT = SDT;
         this.chucVu = chucVu;
+        this.matKhau = matKhau;
+        this.quyenHan = quyenHan;
     }
 
 
@@ -93,5 +106,21 @@ public class Nhanvien {
     public void setChucVu(String chucVu) {
         this.chucVu = chucVu;
     } 
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public PermissionLevel getQuyenHan() {
+        return quyenHan;
+    }
+
+    public void setQuyenHan(PermissionLevel quyenHan) {
+        this.quyenHan = quyenHan;
+    }
     
 }
