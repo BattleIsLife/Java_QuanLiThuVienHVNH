@@ -14,7 +14,7 @@ public class DBConnection {
         try {
             c = DriverManager.getConnection(URL, USER_NAME, PASS_WORD);
         } catch (SQLException e) {
-            System.out.println("Kết nối CSDL thất bại!");
+            // System.out.println("Kết nối CSDL thất bại!");
             e.printStackTrace();
         }
         return c;
@@ -24,7 +24,7 @@ public class DBConnection {
         try {
             if (c != null && !c.isClosed()) {
                 c.close();
-                System.out.println("Đã đóng kết nối CSDL.");
+                // System.out.println("Đã đóng kết nối CSDL.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
