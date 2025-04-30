@@ -51,6 +51,8 @@ import java.io.File;
 
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class SachForm extends JFrame {
@@ -183,6 +185,14 @@ public class SachForm extends JFrame {
 		
 		txtGiasach = new JTextField();
 		txtGiasach.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
+		txtGiasach.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!((c >= '0' && c <= '9') || c == '\b'))
+					e.consume();
+			}
+		});
 		GridBagConstraints gbc_txtGiasach = new GridBagConstraints();
 		gbc_txtGiasach.insets = new Insets(10, 20, 10, 20);
 		gbc_txtGiasach.fill = GridBagConstraints.HORIZONTAL;
