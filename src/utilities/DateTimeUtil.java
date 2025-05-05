@@ -110,6 +110,8 @@ public class DateTimeUtil {
 		return true;
 	}
 
+	//Chỉ được dùng 2 hàm dưới khi kiểu dữ liệu là DATETIME
+
 	public static String getDate(String DateTime)
 	{
 		String[] parts = DateTime.split(" ");
