@@ -22,7 +22,7 @@ public class DateTimeUtil {
 		
 		if(!(year >= 1800 && year < 10000))
 		{
-			JOptionPane.showMessageDialog(frame, "Năm phải lớn hơn 1800 và chỉ được có 4 chữ số", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Năm phải lớn hơn 1000 và chỉ được có 4 chữ số", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
@@ -73,4 +73,52 @@ public class DateTimeUtil {
             return true;
         return false;
     }
+
+	public static boolean isTime(String time, JFrame frame)
+	{
+		String[] parts = time.split(":");
+		byte hour;
+		byte minute;
+		byte second;
+		try {
+			hour = Byte.valueOf(parts[0]);
+			minute = Byte.valueOf(parts[1]);
+			second = Byte.valueOf(parts[2]);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(frame, "Định dạng thời gian không hợp lệ. Phải là hh:mm:ss", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		if(!(hour >= 0 && hour <= 23))
+		{
+			JOptionPane.showMessageDialog(frame, "Số giờ không hợp lệ. 1 ngày chỉ có từ 00 - 23 giờ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		else if(!(minute >= 0 && minute <= 59))
+		{
+			JOptionPane.showMessageDialog(frame, "Số phút không hợp lệ. 1 giờ chỉ có từ 00 - 59 phút", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		else if(!(second >= 0 && second <= 59))
+		{
+			JOptionPane.showMessageDialog(frame, "Số giây không hợp lệ. 1 phút chỉ có từ 00 - 59 phút", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		return true;
+	}
+
+	public static String getDate(String DateTime)
+	{
+		String[] parts = DateTime.split(" ");
+		return parts[0];
+	}
+
+	public static String getTime(String DateTime)
+	{
+		String[] parts = DateTime.split(" ");
+		return parts[1];
+	}
 }
