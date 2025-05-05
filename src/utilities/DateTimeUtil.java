@@ -103,7 +103,7 @@ public class DateTimeUtil {
 
 		else if(!(second >= 0 && second <= 59))
 		{
-			JOptionPane.showMessageDialog(frame, "Số giây không hợp lệ. 1 phút chỉ có từ 00 - 59 phút", "Thông báo", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Số giây không hợp lệ. 1 phút chỉ có từ 00 - 59 giây", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 
