@@ -3,8 +3,6 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.formdev.flatlaf.FlatLightLaf;
 
 import dao.NhaXuatBanDAO;
@@ -17,13 +15,11 @@ import model.Sach;
 import model.Tacgia;
 import model.Theloai;
 
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.GridBagConstraints;
 import java.awt.Font;
-import java.awt.Insets;
+import java.awt.Rectangle;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -55,10 +51,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
-public class SachForm extends JFrame {
+public class SachForm extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	
 	/**
 	 * Launch the application.
@@ -76,60 +71,32 @@ public class SachForm extends JFrame {
 	private Nhanvien nhanvien;
 	
 	public SachForm(Nhanvien nhanvien) {
+		setBounds(new Rectangle(0, 0, 100, 599));
 		this.nhanvien = nhanvien;
-		setTitle("Sách");
 		FlatLightLaf.setup();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		setBounds(100, 100, 1103, 838);
-		this.setSize(1103, 838);
-		this.setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 274, 0, 289, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 106, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		setLayout(null);
 		
 		JLabel lblMSch = new JLabel("Mã sách");
+		lblMSch.setBounds(19, 14, 71, 23);
 		lblMSch.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblMSch = new GridBagConstraints();
-		gbc_lblMSch.insets = new Insets(10, 20, 10, 20);
-		gbc_lblMSch.gridx = 0;
-		gbc_lblMSch.gridy = 0;
-		contentPane.add(lblMSch, gbc_lblMSch);
+		this.add(lblMSch);
 		
 		txtMaSach = new JTextField();
+		txtMaSach.setBounds(172, 10, 332, 31);
 		txtMaSach.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtMaSach = new GridBagConstraints();
-		gbc_txtMaSach.insets = new Insets(10, 20, 10, 20);
-		gbc_txtMaSach.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtMaSach.gridx = 1;
-		gbc_txtMaSach.gridy = 0;
-		contentPane.add(txtMaSach, gbc_txtMaSach);
+		this.add(txtMaSach);
 		txtMaSach.setColumns(10);
 		
 		JLabel lblnh = new JLabel("Ảnh");
+		lblnh.setBounds(750, 18, 33, 23);
 		lblnh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblnh = new GridBagConstraints();
-		gbc_lblnh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblnh.gridx = 2;
-		gbc_lblnh.gridy = 0;
-		contentPane.add(lblnh, gbc_lblnh);
+		this.add(lblnh);
 		
 		JScrollPane scrollPaneAnh = new JScrollPane();
+		scrollPaneAnh.setBounds(835, 14, 199, 184);
 		scrollPaneAnh.setBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPaneAnh.setPreferredSize(new Dimension(103, 22));
-		GridBagConstraints gbc_scrollPaneAnh = new GridBagConstraints();
-		gbc_scrollPaneAnh.fill = GridBagConstraints.BOTH;
-		gbc_scrollPaneAnh.gridheight = 4;
-		gbc_scrollPaneAnh.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPaneAnh.gridx = 3;
-		gbc_scrollPaneAnh.gridy = 0;
-		contentPane.add(scrollPaneAnh, gbc_scrollPaneAnh);
+		this.add(scrollPaneAnh);
 		lblPictureHere.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,7 +104,7 @@ public class SachForm extends JFrame {
 					return;
 				JFrame frame = new JFrame();
 				frame.setTitle(txtAnh.getText());
-				frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				JLabel lbl = new JLabel(lblPictureHere.getIcon());
 				JScrollPane pane = new JScrollPane(lbl);
 				pane.setSize(new Dimension(300, 300));
@@ -158,32 +125,23 @@ public class SachForm extends JFrame {
 		lblPictureHere.setBorder(null);
 		
 		JLabel lblTnSch = new JLabel("Tên sách");
+		lblTnSch.setBounds(19, 57, 101, 23);
 		lblTnSch.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblTnSch = new GridBagConstraints();
-		gbc_lblTnSch.insets = new Insets(10, 20, 10, 20);
-		gbc_lblTnSch.gridx = 0;
-		gbc_lblTnSch.gridy = 1;
-		contentPane.add(lblTnSch, gbc_lblTnSch);
+		this.add(lblTnSch);
 		
 		txtTensach = new JTextField();
+		txtTensach.setBounds(172, 53, 332, 31);
 		txtTensach.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtTensach = new GridBagConstraints();
-		gbc_txtTensach.insets = new Insets(10, 20, 10, 20);
-		gbc_txtTensach.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTensach.gridx = 1;
-		gbc_txtTensach.gridy = 1;
-		contentPane.add(txtTensach, gbc_txtTensach);
+		this.add(txtTensach);
 		txtTensach.setColumns(10);
 		
 		JLabel lblGiSch = new JLabel("Giá sách");
+		lblGiSch.setBounds(19, 100, 71, 23);
 		lblGiSch.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblGiSch = new GridBagConstraints();
-		gbc_lblGiSch.insets = new Insets(10, 20, 10, 20);
-		gbc_lblGiSch.gridx = 0;
-		gbc_lblGiSch.gridy = 2;
-		contentPane.add(lblGiSch, gbc_lblGiSch);
+		this.add(lblGiSch);
 		
 		txtGiasach = new JTextField();
+		txtGiasach.setBounds(172, 96, 332, 31);
 		txtGiasach.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		txtGiasach.addKeyListener(new KeyAdapter() {
 			@Override
@@ -193,49 +151,29 @@ public class SachForm extends JFrame {
 					e.consume();
 			}
 		});
-		GridBagConstraints gbc_txtGiasach = new GridBagConstraints();
-		gbc_txtGiasach.insets = new Insets(10, 20, 10, 20);
-		gbc_txtGiasach.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtGiasach.gridx = 1;
-		gbc_txtGiasach.gridy = 2;
-		contentPane.add(txtGiasach, gbc_txtGiasach);
+		this.add(txtGiasach);
 		txtGiasach.setColumns(10);
 		
 		JLabel lblSLng = new JLabel("Số lượng");
+		lblSLng.setBounds(19, 142, 101, 23);
 		lblSLng.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblSLng = new GridBagConstraints();
-		gbc_lblSLng.insets = new Insets(10, 20, 10, 20);
-		gbc_lblSLng.gridx = 0;
-		gbc_lblSLng.gridy = 3;
-		contentPane.add(lblSLng, gbc_lblSLng);
+		this.add(lblSLng);
+		spnSoluong.setBounds(172, 139, 80, 31);
 		
 		
 		spnSoluong.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 		spnSoluong.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_spnSoluong = new GridBagConstraints();
-		gbc_spnSoluong.anchor = GridBagConstraints.WEST;
-		gbc_spnSoluong.insets = new Insets(10, 20, 10, 20);
-		gbc_spnSoluong.gridx = 1;
-		gbc_spnSoluong.gridy = 3;
-		contentPane.add(spnSoluong, gbc_spnSoluong);
+		this.add(spnSoluong);
 		
 		JLabel lblGhiCh = new JLabel("Ghi chú");
+		lblGhiCh.setBounds(19, 184, 62, 23);
 		lblGhiCh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblGhiCh = new GridBagConstraints();
-		gbc_lblGhiCh.anchor = GridBagConstraints.NORTH;
-		gbc_lblGhiCh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblGhiCh.gridx = 0;
-		gbc_lblGhiCh.gridy = 4;
-		contentPane.add(lblGhiCh, gbc_lblGhiCh);
+		this.add(lblGhiCh);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(172, 182, 338, 86);
 		scrollPane.setPreferredSize(new Dimension(78, 50));
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 4;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		this.add(scrollPane);
 		txtGhichu.setWrapStyleWord(true);
 		txtGhichu.setLineWrap(true);
 		
@@ -246,89 +184,53 @@ public class SachForm extends JFrame {
 		txtGhichu.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		
 		JLabel lblngDnnh = new JLabel("Đường dẫn ảnh");
+		lblngDnnh.setBounds(19, 284, 145, 23);
 		lblngDnnh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblngDnnh = new GridBagConstraints();
-		gbc_lblngDnnh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblngDnnh.gridx = 0;
-		gbc_lblngDnnh.gridy = 5;
-		contentPane.add(lblngDnnh, gbc_lblngDnnh);
+		this.add(lblngDnnh);
 		
 		txtAnh = new JTextField();
+		txtAnh.setBounds(172, 280, 338, 31);
 		txtAnh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtAnh = new GridBagConstraints();
-		gbc_txtAnh.insets = new Insets(10, 20, 10, 20);
-		gbc_txtAnh.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtAnh.gridx = 1;
-		gbc_txtAnh.gridy = 5;
-		contentPane.add(txtAnh, gbc_txtAnh);
+		this.add(txtAnh);
 		txtAnh.setColumns(10);
 		
 		JButton btnAnh = new JButton("Mở ảnh");
+		btnAnh.setBounds(715, 69, 101, 31);
 		btnAnh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAnh_Click();
 			}
 		});
 		btnAnh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_btnAnh = new GridBagConstraints();
-		gbc_btnAnh.insets = new Insets(10, 20, 10, 20);
-		gbc_btnAnh.gridx = 2;
-		gbc_btnAnh.gridy = 5;
-		contentPane.add(btnAnh, gbc_btnAnh);
+		this.add(btnAnh);
 		
 		JLabel lblMTcGi = new JLabel("Mã tác giả");
+		lblMTcGi.setBounds(723, 257, 93, 23);
 		lblMTcGi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblMTcGi = new GridBagConstraints();
-		gbc_lblMTcGi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblMTcGi.gridx = 0;
-		gbc_lblMTcGi.gridy = 6;
-		contentPane.add(lblMTcGi, gbc_lblMTcGi);
+		this.add(lblMTcGi);
+		cboTacgia.setBounds(835, 253, 199, 31);
 		cboTacgia.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_cboTacgia = new GridBagConstraints();
-		gbc_cboTacgia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cboTacgia.insets = new Insets(10, 20, 10, 20);
-		gbc_cboTacgia.gridx = 1;
-		gbc_cboTacgia.gridy = 6;
-		contentPane.add(cboTacgia, gbc_cboTacgia);
+		this.add(cboTacgia);
 		
 		JLabel lblMThLoi = new JLabel("Mã thể loại");
+		lblMThLoi.setBounds(723, 218, 93, 23);
 		lblMThLoi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblMThLoi = new GridBagConstraints();
-		gbc_lblMThLoi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblMThLoi.gridx = 2;
-		gbc_lblMThLoi.gridy = 6;
-		contentPane.add(lblMThLoi, gbc_lblMThLoi);
+		this.add(lblMThLoi);
+		cboTheloai.setBounds(835, 214, 199, 31);
 		cboTheloai.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_cboTheloai = new GridBagConstraints();
-		gbc_cboTheloai.insets = new Insets(10, 20, 10, 20);
-		gbc_cboTheloai.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cboTheloai.gridx = 3;
-		gbc_cboTheloai.gridy = 6;
-		contentPane.add(cboTheloai, gbc_cboTheloai);
+		this.add(cboTheloai);
 		
 		JLabel lblMNxb = new JLabel("Mã NXB");
+		lblMNxb.setBounds(723, 300, 93, 23);
 		lblMNxb.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblMNxb = new GridBagConstraints();
-		gbc_lblMNxb.insets = new Insets(10, 20, 10, 20);
-		gbc_lblMNxb.gridx = 0;
-		gbc_lblMNxb.gridy = 7;
-		contentPane.add(lblMNxb, gbc_lblMNxb);
+		this.add(lblMNxb);
+		cboNXB.setBounds(835, 296, 199, 31);
 		cboNXB.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_cboNXB = new GridBagConstraints();
-		gbc_cboNXB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cboNXB.insets = new Insets(10, 20, 10, 20);
-		gbc_cboNXB.gridx = 1;
-		gbc_cboNXB.gridy = 7;
-		contentPane.add(cboNXB, gbc_cboNXB);
+		this.add(cboNXB);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridwidth = 4;
-		gbc_scrollPane_1.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 8;
-		contentPane.add(scrollPane_1, gbc_scrollPane_1);
+		scrollPane_1.setBounds(19, 331, 702, 207);
+		this.add(scrollPane_1);
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
@@ -345,16 +247,10 @@ public class SachForm extends JFrame {
 		table.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(750, 350, 284, 184);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setVgap(0);
-		flowLayout.setHgap(20);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 4;
-		gbc_panel.insets = new Insets(10, 20, 10, 20);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 9;
-		contentPane.add(panel, gbc_panel);
+		flowLayout.setVgap(10);
+		this.add(panel);
 		
 		
 		btnThem.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
@@ -424,9 +320,6 @@ public class SachForm extends JFrame {
 		FormLoad();
 		
 		SwingUtilities.updateComponentTreeUI(this);
-		this.pack();
-		this.setVisible(true);
-		
 	}
 	
 	private JTextField txtMaSach;

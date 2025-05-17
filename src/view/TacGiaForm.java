@@ -1,7 +1,6 @@
 package view;
 
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -14,14 +13,11 @@ import model.Tacgia;
 import utilities.DateTimeUtil;
 
 import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Insets;
 import java.util.List;
 
 import java.sql.Date;
@@ -40,10 +36,9 @@ import javax.swing.JRadioButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class TacGiaForm extends JFrame {
+public class TacGiaForm extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField txtMatacgia;
 	private JTextField txtTentacgia;
 	
@@ -68,70 +63,41 @@ public class TacGiaForm extends JFrame {
 	
 	public TacGiaForm(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
-		setTitle("Tác giả");
 		FlatLightLaf.setup();
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1002, 696);
-		contentPane = new JPanel();
-		contentPane.setBorder(null);
-
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		setBounds(100, 100, 1041, 553);
+		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Mã tác giả");
+		lblNewLabel.setBounds(53, 14, 88, 23);
 		lblNewLabel.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(10, 20, 10, 20);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		this.add(lblNewLabel);
 		
 		txtMatacgia = new JTextField();
+		txtMatacgia.setBounds(185, 10, 283, 31);
 		txtMatacgia.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtMatacgia = new GridBagConstraints();
-		gbc_txtMatacgia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtMatacgia.insets = new Insets(10, 20, 10, 20);
-		gbc_txtMatacgia.gridx = 1;
-		gbc_txtMatacgia.gridy = 0;
-		contentPane.add(txtMatacgia, gbc_txtMatacgia);
+		this.add(txtMatacgia);
 		txtMatacgia.setColumns(10);
 		
 		JLabel lblTnThLoi = new JLabel("Tên tác giả");
+		lblTnThLoi.setBounds(536, 14, 93, 23);
 		lblTnThLoi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTnThLoi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblTnThLoi = new GridBagConstraints();
-		gbc_lblTnThLoi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblTnThLoi.gridx = 0;
-		gbc_lblTnThLoi.gridy = 1;
-		contentPane.add(lblTnThLoi, gbc_lblTnThLoi);
+		this.add(lblTnThLoi);
 		
 		txtTentacgia = new JTextField();
+		txtTentacgia.setBounds(710, 10, 255, 31);
 		txtTentacgia.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		txtTentacgia.setColumns(10);
-		GridBagConstraints gbc_txtTentacgia = new GridBagConstraints();
-		gbc_txtTentacgia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTentacgia.insets = new Insets(10, 20, 10, 20);
-		gbc_txtTentacgia.gridx = 1;
-		gbc_txtTentacgia.gridy = 1;
-		contentPane.add(txtTentacgia, gbc_txtTentacgia);
+		this.add(txtTentacgia);
 		
 		String[] col = {"Mã tác giả", "Tên tác giả", "Ngày sinh", "Giới tính", "Địa chỉ"};
 		model = new DefaultTableModel(null, col);
-		
-		GridBagConstraints gbc_lblNgySinh = new GridBagConstraints();
-		gbc_lblNgySinh.anchor = GridBagConstraints.EAST;
-		gbc_lblNgySinh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblNgySinh.gridx = 0;
-		gbc_lblNgySinh.gridy = 2;
+		lblNgySinh.setBounds(53, 67, 83, 23);
 		lblNgySinh.setForeground(new Color(0, 0, 0));
 		lblNgySinh.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNgySinh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
+		txtNgaysinh.setBounds(185, 63, 283, 31);
 		txtNgaysinh.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -143,61 +109,32 @@ public class TacGiaForm extends JFrame {
 		txtNgaysinh.setToolTipText("Định dạng: yyyy-DD-mm");
 		txtNgaysinh.setForeground(new Color(0, 0, 0));
 		txtNgaysinh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblNgySinh, gbc_lblNgySinh);
-		
-		GridBagConstraints gbc_txtNgaysinh = new GridBagConstraints();
-		gbc_txtNgaysinh.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNgaysinh.insets = new Insets(10, 20, 10, 20);
-		gbc_txtNgaysinh.gridx = 1;
-		gbc_txtNgaysinh.gridy = 2;
-		contentPane.add(txtNgaysinh, gbc_txtNgaysinh);
-		
-		GridBagConstraints gbc_lblGioitinh = new GridBagConstraints();
-		gbc_lblGioitinh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblGioitinh.gridx = 0;
-		gbc_lblGioitinh.gridy = 3;
+		this.add(lblNgySinh);
+		this.add(txtNgaysinh);
+		lblGioitinh.setBounds(536, 67, 67, 23);
 		lblGioitinh.setForeground(new Color(0, 0, 0));
 		lblGioitinh.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGioitinh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblGioitinh, gbc_lblGioitinh);
-		
-		GridBagConstraints gbc_rdoNam = new GridBagConstraints();
-		gbc_rdoNam.anchor = GridBagConstraints.WEST;
-		gbc_rdoNam.insets = new Insets(10, 20, 10, 20);
-		gbc_rdoNam.gridx = 1;
-		gbc_rdoNam.gridy = 3;
+		this.add(lblGioitinh);
+		rdoNam.setBounds(710, 64, 69, 29);
 		rdoNam.setForeground(new Color(0, 0, 0));
 		rdoNam.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(rdoNam, gbc_rdoNam);
-		
-		GridBagConstraints gbc_lblDiachi = new GridBagConstraints();
-		gbc_lblDiachi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblDiachi.gridx = 0;
-		gbc_lblDiachi.gridy = 4;
+		this.add(rdoNam);
+		lblDiachi.setBounds(53, 122, 57, 23);
 		lblDiachi.setForeground(new Color(0, 0, 0));
 		lblDiachi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiachi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblDiachi, gbc_lblDiachi);
-		
-		GridBagConstraints gbc_txtDiachi = new GridBagConstraints();
-		gbc_txtDiachi.insets = new Insets(10, 20, 10, 20);
-		gbc_txtDiachi.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtDiachi.gridx = 1;
-		gbc_txtDiachi.gridy = 4;
+		this.add(lblDiachi);
+		txtDiachi.setBounds(185, 118, 283, 31);
 		txtDiachi.setToolTipText("");
 		txtDiachi.setForeground(new Color(0, 0, 0));
 		txtDiachi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		
-		contentPane.add(txtDiachi, gbc_txtDiachi);
+		this.add(txtDiachi);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 5;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		scrollPane.setBounds(39, 180, 641, 332);
+		this.add(scrollPane);
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -215,16 +152,11 @@ public class TacGiaForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(750, 204, 263, 269);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setVgap(0);
+		flowLayout.setVgap(10);
 		flowLayout.setHgap(20);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(10, 20, 10, 20);
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 6;
-		contentPane.add(panel, gbc_panel);
+		this.add(panel);
 		btnThem.setBackground(new Color(255, 255, 255));
 		
 		

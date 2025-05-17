@@ -1,7 +1,6 @@
 package view;
 
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -12,14 +11,11 @@ import dao.NhaXuatBanDAO;
 import model.Nhanvien;
 import model.Nhaxuatban;
 import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.SwingConstants;
@@ -35,11 +31,9 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class NhaXuatBanForm extends JFrame {
+public class NhaXuatBanForm extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	
+	private static final long serialVersionUID = 1L;	
 	private JTable table;
 	private DefaultTableModel model;
 
@@ -56,95 +50,59 @@ public class NhaXuatBanForm extends JFrame {
 	
 	public NhaXuatBanForm(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
+		txtEmail.setBounds(703, 65, 309, 31);
 		txtEmail.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		txtEmail.setForeground(new Color(0, 0, 0));
 		txtEmail.setColumns(10);
-		setTitle("Nhà xuất bản");
 		FlatLightLaf.setup();
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 //		setBounds(100, 100, 1002, 696);
-		this.setSize(1002, 696);
-		this.setLocationRelativeTo(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(null);
-
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		this.setSize(1051, 581);
+		this.setBorder(null);
+		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Mã NXB");
+		lblNewLabel.setBounds(22, 14, 71, 23);
 		lblNewLabel.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(10, 20, 10, 20);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		this.add(lblNewLabel);
 		
 		txtMaNXB = new JTextField();
+		txtMaNXB.setBounds(136, 10, 309, 31);
 		txtMaNXB.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtMaNXB = new GridBagConstraints();
-		gbc_txtMaNXB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtMaNXB.insets = new Insets(10, 20, 10, 20);
-		gbc_txtMaNXB.gridx = 1;
-		gbc_txtMaNXB.gridy = 0;
-		contentPane.add(txtMaNXB, gbc_txtMaNXB);
+		this.add(txtMaNXB);
 		txtMaNXB.setColumns(10);
 		
 		JLabel lblTnThLoi = new JLabel("Tên NXB");
+		lblTnThLoi.setBounds(20, 65, 76, 23);
 		lblTnThLoi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTnThLoi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblTnThLoi = new GridBagConstraints();
-		gbc_lblTnThLoi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblTnThLoi.gridx = 0;
-		gbc_lblTnThLoi.gridy = 1;
-		contentPane.add(lblTnThLoi, gbc_lblTnThLoi);
+		this.add(lblTnThLoi);
 		
 		txtTenNXB = new JTextField();
+		txtTenNXB.setBounds(136, 61, 309, 31);
 		txtTenNXB.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		txtTenNXB.setColumns(10);
-		GridBagConstraints gbc_txtTenNXB = new GridBagConstraints();
-		gbc_txtTenNXB.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTenNXB.insets = new Insets(10, 20, 10, 20);
-		gbc_txtTenNXB.gridx = 1;
-		gbc_txtTenNXB.gridy = 1;
-		contentPane.add(txtTenNXB, gbc_txtTenNXB);
+		this.add(txtTenNXB);
 		
 		String[] col = {"Mã NXB", "Tên NXB", "Địa chỉ", "SĐT", "Email"};
 		model = new DefaultTableModel(null, col);
-		
-		GridBagConstraints gbc_lblDiachi = new GridBagConstraints();
-		gbc_lblDiachi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblDiachi.gridx = 0;
-		gbc_lblDiachi.gridy = 2;
+		lblDiachi.setBounds(29, 116, 57, 23);
 		lblDiachi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiachi.setForeground(Color.BLACK);
 		lblDiachi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblDiachi, gbc_lblDiachi);
-		
-		GridBagConstraints gbc_txtDiachi = new GridBagConstraints();
-		gbc_txtDiachi.insets = new Insets(10, 20, 10, 20);
-		gbc_txtDiachi.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtDiachi.gridx = 1;
-		gbc_txtDiachi.gridy = 2;
+		this.add(lblDiachi);
+		txtDiachi.setBounds(136, 112, 309, 31);
 		txtDiachi.setToolTipText("");
 		txtDiachi.setForeground(new Color(0, 0, 0));
 		txtDiachi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		
-		contentPane.add(txtDiachi, gbc_txtDiachi);
-		
-		GridBagConstraints gbc_lblNgySinh = new GridBagConstraints();
-		gbc_lblNgySinh.insets = new Insets(10, 20, 10, 20);
-		gbc_lblNgySinh.gridx = 0;
-		gbc_lblNgySinh.gridy = 3;
+		this.add(txtDiachi);
+		lblNgySinh.setBounds(606, 18, 37, 23);
 		lblNgySinh.setForeground(new Color(0, 0, 0));
 		lblNgySinh.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNgySinh.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblNgySinh, gbc_lblNgySinh);
+		this.add(lblNgySinh);
+		txtSDT.setBounds(703, 14, 309, 31);
 		txtSDT.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -156,38 +114,17 @@ public class NhaXuatBanForm extends JFrame {
 		txtSDT.setToolTipText("");
 		txtSDT.setForeground(new Color(0, 0, 0));
 		txtSDT.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		
-		GridBagConstraints gbc_txtSDT = new GridBagConstraints();
-		gbc_txtSDT.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSDT.insets = new Insets(10, 20, 10, 20);
-		gbc_txtSDT.gridx = 1;
-		gbc_txtSDT.gridy = 3;
-		contentPane.add(txtSDT, gbc_txtSDT);
-		
-		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.insets = new Insets(10, 20, 10, 20);
-		gbc_lblEmail.gridx = 0;
-		gbc_lblEmail.gridy = 4;
+		this.add(txtSDT);
+		lblEmail.setBounds(602, 69, 45, 23);
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmail.setForeground(new Color(0, 0, 0));
 		lblEmail.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		contentPane.add(lblEmail, gbc_lblEmail);
-		
-		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
-		gbc_txtEmail.insets = new Insets(10, 20, 10, 20);
-		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEmail.gridx = 1;
-		gbc_txtEmail.gridy = 4;
-		contentPane.add(txtEmail, gbc_txtEmail);
+		this.add(lblEmail);
+		this.add(txtEmail);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 5;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		scrollPane.setBounds(50, 155, 962, 317);
+		this.add(scrollPane);
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -205,16 +142,11 @@ public class NhaXuatBanForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(50, 501, 962, 33);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setVgap(0);
 		flowLayout.setHgap(20);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(10, 20, 10, 20);
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 6;
-		contentPane.add(panel, gbc_panel);
+		this.add(panel);
 		btnThem.setBackground(new Color(255, 255, 255));
 		
 		

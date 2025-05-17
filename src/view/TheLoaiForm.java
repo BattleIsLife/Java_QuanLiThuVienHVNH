@@ -1,7 +1,6 @@
 package view;
 
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -13,14 +12,11 @@ import model.Nhanvien;
 import model.Theloai;
 
 import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.SwingConstants;
@@ -34,10 +30,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class TheLoaiForm extends JFrame {
+public class TheLoaiForm extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField txtMatheloai;
 	private JTextField txtTentheloai;
 	private JTable table;
@@ -57,66 +52,36 @@ public class TheLoaiForm extends JFrame {
 	
 	public TheLoaiForm(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
-		setTitle("Thể loại");
 		FlatLightLaf.setup();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1002, 696);
-		contentPane = new JPanel();
-		contentPane.setBorder(null);
-
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		setBounds(100, 100, 1029, 595);
+		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Mã thể loại");
+		lblNewLabel.setBounds(46, 14, 93, 23);
 		lblNewLabel.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(10, 20, 10, 20);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		this.add(lblNewLabel);
 		
 		txtMatheloai = new JTextField();
+		txtMatheloai.setBounds(184, 10, 824, 31);
 		txtMatheloai.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_txtMatheloai = new GridBagConstraints();
-		gbc_txtMatheloai.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtMatheloai.insets = new Insets(10, 20, 10, 20);
-		gbc_txtMatheloai.gridx = 1;
-		gbc_txtMatheloai.gridy = 0;
-		contentPane.add(txtMatheloai, gbc_txtMatheloai);
+		this.add(txtMatheloai);
 		txtMatheloai.setColumns(10);
 		
 		JLabel lblTnThLoi = new JLabel("Tên thể loại");
+		lblTnThLoi.setBounds(41, 65, 98, 23);
 		lblTnThLoi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTnThLoi.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblTnThLoi = new GridBagConstraints();
-		gbc_lblTnThLoi.insets = new Insets(10, 20, 10, 20);
-		gbc_lblTnThLoi.gridx = 0;
-		gbc_lblTnThLoi.gridy = 1;
-		contentPane.add(lblTnThLoi, gbc_lblTnThLoi);
+		this.add(lblTnThLoi);
 		
 		txtTentheloai = new JTextField();
+		txtTentheloai.setBounds(184, 61, 824, 31);
 		txtTentheloai.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));
 		txtTentheloai.setColumns(10);
-		GridBagConstraints gbc_txtTentheloai = new GridBagConstraints();
-		gbc_txtTentheloai.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTentheloai.insets = new Insets(10, 20, 10, 20);
-		gbc_txtTentheloai.gridx = 1;
-		gbc_txtTentheloai.gridy = 1;
-		contentPane.add(txtTentheloai, gbc_txtTentheloai);
+		this.add(txtTentheloai);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(10, 20, 10, 20);
-		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 2;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		scrollPane.setBounds(46, 104, 962, 361);
+		this.add(scrollPane);
 		
 		String[] col = {"Mã thể loại", "Tên thể loại"};
 		model = new DefaultTableModel(null, col);
@@ -137,16 +102,11 @@ public class TheLoaiForm extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(46, 489, 962, 33);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setVgap(0);
 		flowLayout.setHgap(20);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(10, 20, 10, 20);
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 3;
-		contentPane.add(panel, gbc_panel);
+		this.add(panel);
 		btnThem.setBackground(new Color(255, 255, 255));
 		
 		
