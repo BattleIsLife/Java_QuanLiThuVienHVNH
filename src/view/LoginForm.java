@@ -14,7 +14,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import controller.NhanVienController;
+import model.Nhanvien;
+import service.NhanVienService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -34,7 +35,8 @@ public class LoginForm extends JFrame {
     private JPanel PanelLogin;
     private JTextField txtEmail;
     private JTextField txtPassword;
-    private NhanVienController controller;
+
+    private NhanVienService nhanVienService;
 
     /**
      * Launch the application.
@@ -44,7 +46,6 @@ public class LoginForm extends JFrame {
             public void run() {
                 try {
                     LoginForm frame = new LoginForm();
-                    
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -57,7 +58,7 @@ public class LoginForm extends JFrame {
      * Create the frame.
      */
     public LoginForm() {
- 
+        nhanVienService = new NhanVienService();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
         PanelLogin = new JPanel() {
@@ -66,7 +67,7 @@ public class LoginForm extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-        
+
                     Image img = ImageIO.read(new File("src/resource/picture/library.png"));
                     Image scaledImage = img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
                     g.drawImage(scaledImage, 0, 0, null);
@@ -85,7 +86,7 @@ public class LoginForm extends JFrame {
         panelLeft.setBorder(BorderFactory.createEtchedBorder());
         PanelLogin.add(panelLeft, new Integer(1));
         panelLeft.setLayout(null);
-        
+
         // Thêm logo vào bên trái
         ImageIcon imageIcon = new ImageIcon("src/resource/picture/logo.png");
         JLabel label = new JLabel(imageIcon);
@@ -131,14 +132,16 @@ public class LoginForm extends JFrame {
 
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {  // Thay 'Click' bằng 'ActionEvent'
+            public void actionPerformed(ActionEvent e) { // Thay 'Click' bằng 'ActionEvent'
                 String email = txtEmail.getText();
                 String pass = txtPassword.getText();
-                controller = new NhanVienController();
-                if (controller.Login(email, pass)) {
-                    MainApplication main = new MainApplication();
+
+                Nhanvien nv = nhanVienService.findByCredentials(email, pass);
+
+                if (nv != null) {
+                    MainApplication main = new MainApplication(nv);
                     main.setVisible(true);
-                    dispose();
+                    dispose(); // ẩn login window
                 } else {
                     JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không đúng !!!");
                 }

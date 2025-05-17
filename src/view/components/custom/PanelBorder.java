@@ -11,9 +11,9 @@ public class PanelBorder extends javax.swing.JPanel {
         setOpaque(false);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // @SuppressWarnings("unchecked")
+    // // <editor-fold defaultstate="collapsed" desc="Generated
+    // // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

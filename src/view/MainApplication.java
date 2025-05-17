@@ -14,31 +14,18 @@ public class MainApplication extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	public static CardLayout cardLayout;
+	public Nhanvien loginUser;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainApplication frame = new MainApplication();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	
-	Nhanvien nv;
-	
-	public MainApplication() {
-		// this.nv = nv;
+
+	public MainApplication(Nhanvien nv) {
+		this.loginUser = nv;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 636);
 		getContentPane().setLayout(null);
