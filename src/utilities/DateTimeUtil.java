@@ -1,10 +1,10 @@
 package utilities;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class DateTimeUtil {
-	public static boolean isDate(String date, JFrame frame)
+	public static boolean isDate(String date, JPanel frame)
 	{
 		String[] dateComp = date.split("-");
 		int year;
@@ -74,7 +74,7 @@ public class DateTimeUtil {
         return false;
     }
 
-	public static boolean isTime(String time, JFrame frame)
+	public static boolean isTime(String time, JPanel frame)
 	{
 		String[] parts = time.split(":");
 		byte hour;
