@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public abstract class BaseDAO<T> {
     // Các phương thức chung mà mọi DAO có thể sử dụng
     public int insert(String sql, Object... params) {
         try (Connection conn = getConnection();
-        		PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             setParams(ps, params);
             return ps.executeUpdate();
         } catch (SQLException e) {
@@ -50,13 +49,14 @@ public abstract class BaseDAO<T> {
             setParams(ps, params);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return mapRow(rs); 
+                return mapRow(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public T findByCredentials(String sql, Object... params) {
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             setParams(ps, params);
@@ -84,7 +84,8 @@ public abstract class BaseDAO<T> {
         return results;
     }
 
-    // Phương thức này cần được cài đặt trong các lớp con để ánh xạ dữ liệu từ ResultSet vào đối tượng
+    // Phương thức này cần được cài đặt trong các lớp con để ánh xạ dữ liệu từ
+    // ResultSet vào đối tượng
     protected abstract T mapRow(ResultSet rs) throws SQLException;
 
     private void setParams(PreparedStatement ps, Object[] params) throws SQLException {

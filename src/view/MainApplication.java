@@ -41,7 +41,7 @@ public class MainApplication extends JFrame {
 		contentPanel.add(new PanelSach(nv), "sach");
 		contentPanel.add(new PanelNguoiDung(), "nguoidung");
 		contentPanel.add(new PanelNhanVien(), "nhanvien");
-		contentPanel.add(new PanelPhieuMuonTra(), "phieumuontra");
+		contentPanel.add(new PanelPhieuMuonTra(nv), "phieumuontra");
 		contentPanel.add(new PanelCaiDat(), "caidat");
 
 		// Panel Navigation

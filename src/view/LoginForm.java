@@ -137,8 +137,8 @@ public class LoginForm extends JFrame {
                 String pass = txtPassword.getText();
 
                 Nhanvien nv = nhanVienService.findByCredentials(email, pass);
-
                 if (nv != null) {
+                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                     MainApplication main = new MainApplication(nv);
                     main.setVisible(true);
                     dispose(); // ẩn login window

@@ -1,28 +1,49 @@
 package view.components;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.JTabbedPane;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.SwingUtilities;
+import model.Nhanvien;
+
+import view.NhaXuatBanForm;
+import view.PhieuMuon;
+import view.SachForm;
+import view.TacGiaForm;
+import view.TheLoaiForm;
+
+import java.awt.Rectangle;
+
+import java.awt.BorderLayout;
 
 public class PanelPhieuMuonTra extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField txtNgiDng;
-
 	/**
 	 * Create the panel.
 	 */
-	public PanelPhieuMuonTra() {
-		setLayout(null);
-		
-		txtNgiDng = new JTextField();
-		txtNgiDng.setHorizontalAlignment(SwingConstants.CENTER);
-		txtNgiDng.setText("Phiếu mượn trả");
-		txtNgiDng.setBounds(228, 164, 237, 62);
-		add(txtNgiDng);
-		txtNgiDng.setColumns(10);
+	Nhanvien nv;
 
+	public PanelPhieuMuonTra(Nhanvien nv) {
+		this.nv = nv;
+		FlatLightLaf.setup();
+		setBounds(new Rectangle(0, 0, 1000, 599));
+		setLayout(new BorderLayout(0, 0));
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		add(tabbedPane);
+
+		JPanel phieumuon = new PhieuMuon(nv);
+		tabbedPane.addTab("Phiếu mượn ", null, phieumuon, null);
+		phieumuon.setLayout(null);
+
+		JPanel traForm = new PhieuMuon(nv);
+
+		tabbedPane.addTab("Chi tiết phiếu mượn", null, traForm, null);
+		traForm.setLayout(null);
+
+		SwingUtilities.updateComponentTreeUI(this);
 	}
 
 }
