@@ -13,7 +13,7 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
     public int them(Nhanvien nhanvien) {
         String sql = "INSERT INTO tblNhanVien (Manhanvien, Tennhanvien, Ngaysinh, Gioitinh, Diachi, Email, SDT, Chucvu, Matkhau, Quyenhan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, nhanvien.getMaNhanVien(), nhanvien.getTenNhanVien(), nhanvien.getNgaySinh(), nhanvien.getGioiTinh(),
-                nhanvien.getDiaChi(), nhanvien.getEmail(), nhanvien.getSDT(), nhanvien.getChucVu(), nhanvien.getMatKhau(), nhanvien.getQuyenHan().name());
+                nhanvien.getDiaChi(), nhanvien.getEmail(), nhanvien.getSDT(), nhanvien.getChucVu(), nhanvien.getMatKhau(), nhanvien.getQuyenHan().toString());
     }
 
     public Nhanvien selectById(String maNhanVien) {
@@ -21,13 +21,30 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
         return selectById(sql, maNhanVien);
     }
     public List<Nhanvien> getAll() {
-        String sql = "SELECT * FROM tblnhanvien"; 
+        String sql = "SELECT * FROM tblNhanVien"; 
         return getAll(sql);
     }
+    
+    public List<Nhanvien> timKiemBangTenOrMa(String text) {
+        String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien LIKE CONCAT('%', ?, '%') OR Tennhanvien LIKE CONCAT('%', ?, '%')"; 
+        return getAll(sql, text, text);
+    }
+    
     public Nhanvien findByCredentials(String email,String password) {
-    	String sql = "SELECT * FROM tblNhanvien WHERE Manhanvien = ? AND Matkhau = ?";
+    	String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien = ? AND Matkhau = ?";
     	Nhanvien nhanvien =findByCredentials(sql, email, password);
     	return  nhanvien;
+    }
+    
+    public int xoa(String maNhanVien) {
+        String sql = "DELETE FROM tblNhanVien WHERE Manhanvien = ?";
+        return delete(sql, maNhanVien);
+    }
+    
+    public int sua(Nhanvien nv)
+    {
+    	String sql = "UPDATE tblNhanVien SET Tennhanvien = ?, Ngaysinh = ?, Gioitinh = ?, Diachi = ?, Email = ?, SDT = ?, Chucvu = ?, Quyenhan = ? WHERE Manhanvien = ?";
+    	return update(sql, nv.getTenNhanVien(), nv.getNgaySinh(), nv.getGioiTinh(), nv.getDiaChi(), nv.getEmail(), nv.getSDT(), nv.getChucVu(), nv.getQuyenHan().toString(), nv.getMaNhanVien());
     }
 
     @Override

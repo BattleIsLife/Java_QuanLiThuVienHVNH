@@ -108,7 +108,7 @@ public class LoginForm extends JFrame {
         separator.setBounds(38, 204, 346, 2);
         panelLeft.add(separator);
 
-        JLabel lblNewLabel = new JLabel("Email");
+        JLabel lblNewLabel = new JLabel("Username");
         lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         lblNewLabel.setBounds(38, 204, 165, 46);

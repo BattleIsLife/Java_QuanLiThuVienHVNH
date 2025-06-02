@@ -25,6 +25,11 @@ public class PanelSach extends JPanel {
 	
 	public PanelSach(Nhanvien nv) {
 		this.nv = nv;
+		
+		if(!utilities.PermissionUtil.isAllowedToViewAsNhanvien(nv, this))
+		{
+			return;
+		}
 		FlatLightLaf.setup();
 		setBounds(new Rectangle(0, 0, 1000, 599));
 		setLayout(new BorderLayout(0, 0));

@@ -29,7 +29,7 @@ public class Navigation extends JPanel {
 		btnSach.setBounds(15, 155, 209, 64);
 		add(btnSach);
 		
-		JButton btnNguoiDung = new JButtonCustom("Người dùng");
+		JButton btnNguoiDung = new JButtonCustom("Người mượn");
 		btnNguoiDung.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNguoiDung.setBounds(15, 229, 209, 64);
 		add(btnNguoiDung);
