@@ -51,25 +51,71 @@ public class PhieuMuonDAO extends BaseDAO<PhieuMuonModel> {
         return list;
     }
 
+    private boolean isValidNguoiMuon(String manguoimuon) {
+        String sql = "SELECT COUNT(*) FROM tblNguoiMuon WHERE Manguoimuon = ?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, manguoimuon);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error validating Manguoimuon: " + e.getMessage());
+        }
+    }
+
+    private boolean isValidNhanVien(String manhanvien) {
+        String sql = "SELECT COUNT(*) FROM tblNhanVien WHERE Manhanvien = ?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, manhanvien);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error validating Manhanvien: " + e.getMessage());
+        }
+    }
+
+    public void sua(PhieuMuonModel pm) {
+        if (pm.getMaphieumuon() == null || pm.getNgaymuon() == null || pm.getHantrasach() == null ||
+                pm.getManguoimuon() == null || pm.getManhanvien() == null) {
+            throw new IllegalArgumentException("All fields must be non-null");
+        }
+        if (!isValidNguoiMuon(pm.getManguoimuon())) {
+            throw new IllegalArgumentException("Invalid Manguoimuon: " + pm.getManguoimuon());
+        }
+        if (!isValidNhanVien(pm.getManhanvien())) {
+            throw new IllegalArgumentException("Invalid Manhanvien: " + pm.getManhanvien());
+        }
+        PhieuMuonModel existing = selectById(pm.getMaphieumuon());
+        if (existing == null) {
+            throw new IllegalArgumentException("No PhieuMuon found with Maphieumuon: " + pm.getMaphieumuon());
+        }
+        System.out.println("Updating PhieuMuon: Maphieumuon=" + pm.getMaphieumuon() + ", Ngaymuon=" + pm.getNgaymuon() +
+                ", Hantrasach=" + pm.getHantrasach() + ", Manguoimuon=" + pm.getManguoimuon() +
+                ", Manhanvien=" + pm.getManhanvien());
+        String sql = "UPDATE tblphieumuon SET Ngaymuon = ?, Hantrasach = ?, Manguoimuon = ?, Manhanvien = ? WHERE Maphieumuon = ?";
+        int rowsAffected = update(sql, new Timestamp(pm.getNgaymuon().getTime()),
+                new Date(pm.getHantrasach().getTime()),
+                pm.getManguoimuon(), pm.getManhanvien(), pm.getMaphieumuon());
+        System.out.println("Rows affected: " + rowsAffected);
+        if (rowsAffected == 0) {
+            throw new RuntimeException("No rows updated for Maphieumuon: " + pm.getMaphieumuon());
+        }
+    }
+
     public PhieuMuonModel selectById(String maphieumuon) {
-        String sql = "SELECT * FROM tblPhieuMuon WHERE Maphieumuon = ?";
+        String sql = "SELECT * FROM tblphieumuon WHERE Maphieumuon = ?";
         return selectById(sql, maphieumuon);
     }
 
     public void them(PhieuMuonModel pm) {
-        String sql = "INSERT INTO tblPhieuMuon (Maphieumuon, Ngaymuon, Hantrasach, Manguoimuon, Manhanvien) VALUES (?, ?, ?, ?, ?)";
+
+        String sql = "INSERT INTO tblphieumuon (Maphieumuon, Ngaymuon, Hantrasach, Manguoimuon, Manhanvien) VALUES (?, ?, ?, ?, ?)";
         insert(sql, pm.getMaphieumuon(), new Timestamp(pm.getNgaymuon().getTime()),
                 new Date(pm.getHantrasach().getTime()), pm.getManguoimuon(), pm.getManhanvien());
     }
 
-    public void sua(PhieuMuonModel pm) {
-        String sql = "UPDATE tblPhieuMuon SET Ngaymuon = ?, Hantrasach = ?, Manguoimuon = ?, Manhanvien = ? WHERE Maphieumuon = ?";
-        update(sql, new Timestamp(pm.getNgaymuon().getTime()), new Date(pm.getHantrasach().getTime()),
-                pm.getManguoimuon(), pm.getManhanvien(), pm.getMaphieumuon());
-    }
-
     public void xoa(String maphieumuon) {
-        String sql = "DELETE FROM tblPhieuMuon WHERE Maphieumuon = ?";
+
+        String sql = "DELETE FROM tblphieumuon WHERE Maphieumuon = ?";
         delete(sql, maphieumuon);
     }
 }

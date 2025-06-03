@@ -19,42 +19,40 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-import component.RoundedTextField;
 import javax.swing.JSeparator;
+
 public class RegisterForm extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel PanelLogin;
-	private JTextField txtEmail;
-	private JTextField txtPassword;
+    private static final long serialVersionUID = 1L;
+    private JPanel PanelLogin;
+    private JTextField txtEmail;
+    private JTextField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterForm frame = new RegisterForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    RegisterForm frame = new RegisterForm();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	
-	  public RegisterForm() {
+    /**
+     * Create the frame.
+     */
+
+    public RegisterForm() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
         PanelLogin = new JPanel() {
@@ -63,7 +61,7 @@ public class RegisterForm extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-        
+
                     Image img = ImageIO.read(new File("src/resource/picture/library.png"));
                     Image scaledImage = img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
                     g.drawImage(scaledImage, 0, 0, null);
@@ -82,7 +80,7 @@ public class RegisterForm extends JFrame {
         panelLeft.setBorder(BorderFactory.createEtchedBorder());
         PanelLogin.add(panelLeft, new Integer(1));
         panelLeft.setLayout(null);
-  
+
         ImageIcon imageIcon = new ImageIcon("src/resource/picture/logo.png");
         JLabel label = new JLabel(imageIcon);
         label.setBounds(160, 10, imageIcon.getIconWidth(), imageIcon.getIconHeight());
@@ -142,8 +140,6 @@ public class RegisterForm extends JFrame {
         btnRegister.setBounds(233, 437, 74, 13);
         panelLeft.add(btnRegister);
         btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-       
 
         btnRegister.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

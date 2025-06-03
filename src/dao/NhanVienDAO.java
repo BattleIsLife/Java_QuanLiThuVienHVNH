@@ -25,22 +25,22 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
     }
 
     public List<Nhanvien> getAll() {
-        String sql = "SELECT * FROM tblNhanvien";
+        String sql = "SELECT * FROM tblnhanvien";
         return getAll(sql);
     }
 
     public Nhanvien selectById(String maNhanvien) {
-        String sql = "SELECT * FROM tblNhanvien WHERE MaNhanvien = ?";
+        String sql = "SELECT * FROM tblnhanvien WHERE Manhanvien = ?";
         return selectById(sql, maNhanvien);
     }
 
     public Nhanvien selectByTen(String tenNhanvien) {
-        String sql = "SELECT * FROM tblNhanvien WHERE TenNhanvien = ?";
+        String sql = "SELECT * FROM tblnhanvien WHERE Tennhanvien = ?";
         return selectById(sql, tenNhanvien); // Sử dụng selectById vì logic tương tự
     }
 
     public Nhanvien findByCredentials(String email, String password) {
-        String sql = "SELECT * FROM tblNhanvien WHERE Manhanvien = ? AND Matkhau = ?";
+        String sql = "SELECT * FROM tblnhanvien WHERE Manhanvien = ? AND Matkhau = ?";
         Nhanvien nhanvien = findByCredentials(sql, email, password);
         return nhanvien;
     }

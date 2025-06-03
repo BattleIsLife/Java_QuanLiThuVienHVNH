@@ -11,13 +11,11 @@ import model.Nguoimuon;
 import model.Nhanvien;
 import model.PhieuMuonModel;
 import model.PhieuMuonDTO;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JTable;
@@ -25,18 +23,16 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-public class PhieuMuon extends JPanel {
-
+public class PhieuMuonForm extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTable table;
     private DefaultTableModel model;
-    private Nhanvien Nhanvien;
+    private Nhanvien nhanvien;
     private JTextField txtMaPhieuMuon;
     private JTextField txtNgayMuon;
     private JTextField txtHanTraSach;
@@ -48,8 +44,8 @@ public class PhieuMuon extends JPanel {
     private JButton btnSua;
     private JButton btnXoa;
 
-    public PhieuMuon(Nhanvien Nhanvien) {
-        this.Nhanvien = Nhanvien;
+    public PhieuMuonForm(Nhanvien nhanvien) {
+        this.nhanvien = nhanvien;
         FlatLightLaf.setup();
         setSize(1051, 581);
         setBorder(null);
@@ -253,15 +249,15 @@ public class PhieuMuon extends JPanel {
     }
 
     private void btnThem_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(Nhanvien, this))
+        if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
             return;
         ResetValue();
-        txtMaPhieuMuon.setText(""); // bạn có thể để mã tự động hoặc trống để DB tự sinh
+        txtMaPhieuMuon.setText("");
         txtMaPhieuMuon.setEnabled(true);
         txtNgayMuon.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         txtHanTraSach.setText("");
         txtNguoiMuon.setText("");
-        txtNhanvien.setText(Nhanvien.getTenNhanVien());
+        txtNhanvien.setText(nhanvien.getTenNhanVien());
 
         btnThem.setEnabled(false);
         btnLuu.setEnabled(true);
@@ -306,29 +302,35 @@ public class PhieuMuon extends JPanel {
             return;
         }
 
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date ngayMuon, hanTraSach;
+        try {
+            ngayMuon = dateTimeFormat.parse(ngayMuonStr);
+            hanTraSach = dateFormat.parse(hanTraSachStr);
+            if (hanTraSach.before(ngayMuon)) {
+                JOptionPane.showMessageDialog(this, "Hạn trả sách phải sau ngày mượn", "Thông báo",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ (yyyy-MM-dd [HH:mm:ss])", "Thông báo",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         NguoiMuonDAO nguoiMuonDAO = new NguoiMuonDAO();
-        NhanVienDAO NhanVienDAO = new NhanVienDAO();
+        NhanVienDAO nhanVienDAO = new NhanVienDAO();
         Nguoimuon nguoiMuon = nguoiMuonDAO.selectByTen(tenNguoiMuon);
-        Nhanvien nhanvien = NhanVienDAO.selectByTen(tenNhanvien);
+        Nhanvien nhanvienFromDb = nhanVienDAO.selectByTen(tenNhanvien);
 
         if (nguoiMuon == null) {
             JOptionPane.showMessageDialog(this, "Người mượn không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (nhanvien == null) {
+        if (nhanvienFromDb == null) {
             JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date ngayMuon, hanTraSach;
-        try {
-            ngayMuon = dateTimeFormat.parse(ngayMuonStr); // Use dateTimeFormat for consistency
-            hanTraSach = dateFormat.parse(hanTraSachStr);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -344,14 +346,14 @@ public class PhieuMuon extends JPanel {
         pm.setNgaymuon(ngayMuon);
         pm.setHantrasach(hanTraSach);
         pm.setManguoimuon(nguoiMuon.getMaNguoiMuon());
-        pm.setManhanvien(nhanvien.getMaNhanVien());
+        pm.setManhanvien(nhanvienFromDb.getMaNhanVien());
         dao.them(pm);
         ResetValue();
         GetData(model);
     }
 
     private void btnXoa_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(Nhanvien, this))
+        if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
             return;
         if (model.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Chưa có dữ liệu", "Thông báo", JOptionPane.PLAIN_MESSAGE);
@@ -382,7 +384,7 @@ public class PhieuMuon extends JPanel {
 
         if (maPhieuMuon.isEmpty() && ngayMuon.isEmpty() && hanTraSach.isEmpty() && tenNguoiMuon.isEmpty()
                 && tenNhanvien.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập điều kiện tìm kiếm", "Thông báo",
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập ít nhất một điều kiện tìm kiếm", "Thông báo",
                     JOptionPane.PLAIN_MESSAGE);
             return;
         }
@@ -401,11 +403,11 @@ public class PhieuMuon extends JPanel {
             String tenNguoiMuonDb = pm.getTennguoimuon() != null ? pm.getTennguoimuon() : "";
             String tenNhanvienDb = pm.getTennhanvien() != null ? pm.getTennhanvien() : "";
 
-            if (pm.getMaphieumuon().toLowerCase().contains(maPhieuMuon.toLowerCase()) &&
-                    ngayMuonDb.toLowerCase().contains(ngayMuon.toLowerCase()) &&
-                    hanTraSachDb.toLowerCase().contains(hanTraSach.toLowerCase()) &&
-                    tenNguoiMuonDb.toLowerCase().contains(tenNguoiMuon.toLowerCase()) &&
-                    tenNhanvienDb.toLowerCase().contains(tenNhanvien.toLowerCase())) {
+            if ((maPhieuMuon.isEmpty() || pm.getMaphieumuon().toLowerCase().contains(maPhieuMuon.toLowerCase())) &&
+                    (ngayMuon.isEmpty() || ngayMuonDb.toLowerCase().contains(ngayMuon.toLowerCase())) &&
+                    (hanTraSach.isEmpty() || hanTraSachDb.toLowerCase().contains(hanTraSach.toLowerCase())) &&
+                    (tenNguoiMuon.isEmpty() || tenNguoiMuonDb.toLowerCase().contains(tenNguoiMuon.toLowerCase())) &&
+                    (tenNhanvien.isEmpty() || tenNhanvienDb.toLowerCase().contains(tenNhanvien.toLowerCase()))) {
                 Object[] row = {
                         pm.getMaphieumuon(),
                         ngayMuonDb,
@@ -422,7 +424,7 @@ public class PhieuMuon extends JPanel {
     }
 
     private void btnSua_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(Nhanvien, this))
+        if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
             return;
         String maPhieuMuon = txtMaPhieuMuon.getText().trim();
         String ngayMuonStr = txtNgayMuon.getText().trim();
@@ -460,35 +462,49 @@ public class PhieuMuon extends JPanel {
             return;
         }
 
-        NguoiMuonDAO nguoiMuonDAO = new NguoiMuonDAO();
-        NhanVienDAO NhanVienDAO = new NhanVienDAO();
-        Nguoimuon nguoiMuon = nguoiMuonDAO.selectByTen(tenNguoiMuon);
-        Nhanvien nhanvien = NhanVienDAO.selectByTen(tenNhanvien);
-
-        if (nguoiMuon == null) {
-            JOptionPane.showMessageDialog(this, "Người mượn không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (nhanvien == null) {
-            JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date ngayMuon, hanTraSach;
         try {
             ngayMuon = dateTimeFormat.parse(ngayMuonStr);
             hanTraSach = dateFormat.parse(hanTraSachStr);
+            if (hanTraSach.before(ngayMuon)) {
+                JOptionPane.showMessageDialog(this, "Hạn trả sách phải sau ngày mượn", "Thông báo",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ (yyyy-MM-dd [HH:mm:ss])", "Thông báo",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        NguoiMuonDAO nguoiMuonDAO = new NguoiMuonDAO();
+        NhanVienDAO nhanVienDAO = new NhanVienDAO();
+        Nguoimuon nguoiMuon = nguoiMuonDAO.selectByTen(tenNguoiMuon);
+        Nhanvien nhanvienFromDb = nhanVienDAO.selectByTen(tenNhanvien);
+
+        if (nguoiMuon == null) {
+            JOptionPane.showMessageDialog(this, "Người mượn không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (nhanvienFromDb == null) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         PhieuMuonDAO dao = new PhieuMuonDAO();
-        PhieuMuonModel pm = new PhieuMuonModel(maPhieuMuon, ngayMuon, hanTraSach, nguoiMuon.getMaNguoiMuon(),
-                nhanvien.getMaNhanVien());
+        PhieuMuonModel pm = dao.selectById(maPhieuMuon);
+        if (pm == null) {
+            JOptionPane.showMessageDialog(this, "Phiếu mượn không tồn tại", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        pm.setNgaymuon(ngayMuon);
+        pm.setHantrasach(hanTraSach);
+        pm.setManguoimuon(nguoiMuon.getMaNguoiMuon());
+        pm.setManhanvien(nhanvienFromDb.getMaNhanVien());
         dao.sua(pm);
         ResetValue();
         GetData(model);

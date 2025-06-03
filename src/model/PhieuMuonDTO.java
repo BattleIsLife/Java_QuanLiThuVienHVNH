@@ -18,6 +18,9 @@ public class PhieuMuonDTO {
         this.tennhanvien = tennhanvien;
     }
 
+    public PhieuMuonDTO() {
+    }
+
     public String getMaphieumuon() {
         return maphieumuon;
     }
@@ -36,5 +39,25 @@ public class PhieuMuonDTO {
 
     public String getTennhanvien() {
         return tennhanvien;
+    }
+
+    public void setMaphieumuon(String maphieumuon) {
+        this.maphieumuon = maphieumuon;
+    }
+
+    public void setNgaymuon(Date ngaymuon) {
+        this.ngaymuon = ngaymuon;
+    }
+
+    public void setHantrasach(Date hantrasach) {
+        this.hantrasach = hantrasach;
+    }
+
+    public void setTennguoimuon(String tennguoimuon) {
+        this.tennguoimuon = tennguoimuon;
+    }
+
+    public void setTennhanvien(String tennhanvien) {
+        this.tennhanvien = tennhanvien;
     }
 }

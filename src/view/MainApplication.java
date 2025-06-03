@@ -1,11 +1,8 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Nhanvien;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import view.components.*;

@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import config.DBConnection;
 
 public abstract class BaseDAO<T> {
@@ -35,13 +37,21 @@ public abstract class BaseDAO<T> {
     }
 
     public int delete(String sql, Object... params) {
-        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        int affectedRows = 0;
+        try (
+                Connection conn = getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
             setParams(ps, params);
-            return ps.executeUpdate();
+            affectedRows = ps.executeUpdate(); // Sửa ở đây
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Không thể thực hiện thao tác xóa do ràng buộc khóa ngoại! ",
+                    "Lỗi SQL",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
-            return 0;
         }
+
+        return affectedRows;
     }
 
     public T selectById(String sql, Object... params) {
