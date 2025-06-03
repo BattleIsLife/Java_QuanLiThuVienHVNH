@@ -3,9 +3,13 @@ package dao;
 import model.Nhanvien;
 import model.PermissionLevel;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import config.DBConnection;
 
 public class NhanVienDAO extends BaseDAO<Nhanvien> {
 
@@ -43,5 +47,34 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
         String sql = "SELECT * FROM tblnhanvien WHERE Manhanvien = ? AND Matkhau = ?";
         Nhanvien nhanvien = findByCredentials(sql, email, password);
         return nhanvien;
+    }
+
+    public boolean themNhanVien(Nhanvien nv) {
+        String sql = "INSERT INTO tblnhanvien (Manhanvien, Tennhanvien, Matkhau) VALUES (?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nv.getMaNhanVien());
+            stmt.setString(2, nv.getTenNhanVien());
+            stmt.setString(3, nv.getMatKhau());
+
+            int rowsInserted = stmt.executeUpdate();
+            return rowsInserted > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Nhanvien findByEmail(String email) {
+        String sql = "SELECT * FROM tblnhanvien WHERE Email = ?";
+        return selectById(sql, email);
+    }
+
+    public boolean updatePassword(String email, String newPassword) {
+        String sql = "UPDATE tblnhanvien SET Matkhau = ? WHERE Email = ?";
+        int rowsAffected = update(sql, newPassword, email);
+        return rowsAffected > 0;
     }
 }

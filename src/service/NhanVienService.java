@@ -23,6 +23,15 @@ public class NhanVienService {
     // public int xoaNhanVien(String maNhanVien) {
     // return nhanvienDao.delete(maNhanVien);
     // }
+    public Nhanvien findByEmail(String email) {
+        // Query database for user with matching email
+        return nhanvienDao.findByEmail(email);
+    }
+
+    public boolean updatePassword(String email, String newPassword) {
+        // Update password in database for user with matching email
+        return nhanvienDao.updatePassword(email, newPassword);
+    }
 
     // Phương thức lấy tất cả nhân viên
     public List<Nhanvien> layTatCaNhanVien() {
