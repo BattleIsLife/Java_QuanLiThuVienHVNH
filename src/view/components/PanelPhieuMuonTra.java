@@ -7,6 +7,8 @@ import javax.swing.SwingUtilities;
 import model.Nhanvien;
 import view.ChiTietPhieuMuonForm;
 import view.PhieuMuonForm;
+import view.PhieuPhatForm;
+
 import java.awt.Rectangle;
 import java.awt.BorderLayout;
 
@@ -33,6 +35,9 @@ public class PanelPhieuMuonTra extends JPanel {
 		JPanel ctm = new ChiTietPhieuMuonForm(nv);
 		tabbedPane.addTab("Chi tiết phiếu mượn", null, ctm, null);
 		ctm.setLayout(null);
+
+		JPanel pp = new PhieuPhatForm(nv);
+		tabbedPane.addTab("Phiếu phạt", null, pp, null);
 
 		SwingUtilities.updateComponentTreeUI(this);
 	}

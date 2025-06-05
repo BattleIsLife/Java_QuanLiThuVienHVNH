@@ -1,13 +1,13 @@
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Phieuphat {
     private String maPhieuPhat;
     private float tienPhat;
     private String maNguoiMuon;
     private String maNhanVien;
-    private Date thoiGianPhat;
+    private Timestamp thoiGianPhat;
     private String ghiChu;
 
     public Phieuphat()
@@ -15,7 +15,7 @@ public class Phieuphat {
 
     }
 
-    public Phieuphat(String maPhieuPhat, float tienPhat, String maNguoiMuon, String maNhanVien, Date thoiGianPhat, String ghiChu)
+    public Phieuphat(String maPhieuPhat, float tienPhat, String maNguoiMuon, String maNhanVien, Timestamp thoiGianPhat, String ghiChu)
     {
         this.maPhieuPhat = maPhieuPhat;
         this.tienPhat = tienPhat;
@@ -49,10 +49,10 @@ public class Phieuphat {
     public void setMaNhanVien(String maNhanVien) {
         this.maNhanVien = maNhanVien;
     }
-    public Date getThoiGianPhat() {
+    public Timestamp getThoiGianPhat() {
         return thoiGianPhat;
     }
-    public void setThoiGianPhat(Date thoiGianPhat) {
+    public void setThoiGianPhat(Timestamp thoiGianPhat) {
         this.thoiGianPhat = thoiGianPhat;
     }
     public String getGhiChu() {
