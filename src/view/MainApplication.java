@@ -36,10 +36,10 @@ public class MainApplication extends JFrame {
 		// Add các panel con
 		contentPanel.add(new PanelThongKe(), "thongke");
 		contentPanel.add(new PanelSach(loginUser), "sach");
-		contentPanel.add(new PanelNguoiDung(loginUser), "nguoidung");
+		contentPanel.add(new NguoiMuonForm(loginUser), "nguoidung");
 		contentPanel.add(new PanelNhanVien(loginUser), "nhanvien");
 		contentPanel.add(new PanelPhieuMuonTra(loginUser), "phieumuontra");
-		contentPanel.add(new CaiDatForm(nv, this), "caidat");
+		contentPanel.add(new CaiDatForm(loginUser, this), "caidat");
 
 		// Panel Navigation
 		JPanel navigationWrapper = new JPanel();

@@ -17,7 +17,6 @@ public class PanelNguoiDung extends JPanel {
 	 */
 	public PanelNguoiDung(Nhanvien nv) {
 		new NguoiMuonForm(nv);
-		// new NguoiMuonForm(nv);
 		// setLayout(null);
 		
 		// txtNgiDng = new JTextField();
