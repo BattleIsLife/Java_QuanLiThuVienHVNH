@@ -49,6 +49,10 @@ public class NhaXuatBanForm extends JPanel {
 	private Nhanvien nhanvien;
 	
 	public NhaXuatBanForm(Nhanvien nhanvien) {
+		if(!utilities.PermissionUtil.isAllowedToViewAsNhanvien(nhanvien, this))
+		{
+			return;
+		}
 		this.nhanvien = nhanvien;
 		txtEmail.setBounds(703, 65, 309, 31);
 		txtEmail.setFont(new Font("Adwaita Sans", Font.PLAIN, 18));

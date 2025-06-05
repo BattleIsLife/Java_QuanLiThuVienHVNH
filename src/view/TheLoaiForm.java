@@ -51,6 +51,10 @@ public class TheLoaiForm extends JPanel {
 	private Nhanvien nhanvien;
 	
 	public TheLoaiForm(Nhanvien nhanvien) {
+		if(!utilities.PermissionUtil.isAllowedToViewAsNhanvien(nhanvien, this))
+		{
+			return;
+		}
 		this.nhanvien = nhanvien;
 		FlatLightLaf.setup();
 		setBounds(100, 100, 1029, 595);

@@ -62,6 +62,11 @@ public class TacGiaForm extends JPanel {
 	private Nhanvien nhanvien;
 	
 	public TacGiaForm(Nhanvien nhanvien) {
+		if(!utilities.PermissionUtil.isAllowedToViewAsNhanvien(nhanvien, this))
+		{
+			return;
+		}
+		
 		this.nhanvien = nhanvien;
 		FlatLightLaf.setup();
 		
