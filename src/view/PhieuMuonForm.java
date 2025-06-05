@@ -249,8 +249,8 @@ public class PhieuMuonForm extends JPanel {
     }
 
     private void btnThem_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
-            return;
+        // if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
+        //     return;
         ResetValue();
         txtMaPhieuMuon.setText("");
         txtMaPhieuMuon.setEnabled(true);
@@ -424,8 +424,8 @@ public class PhieuMuonForm extends JPanel {
     }
 
     private void btnSua_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
-            return;
+        // if (!utilities.PermissionUtil.isAllowedToModify(nhanvien, this))
+        //     return;
         String maPhieuMuon = txtMaPhieuMuon.getText().trim();
         String ngayMuonStr = txtNgayMuon.getText().trim();
         String hanTraSachStr = txtHanTraSach.getText().trim();

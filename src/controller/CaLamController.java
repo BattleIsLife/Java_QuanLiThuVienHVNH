@@ -24,10 +24,12 @@ public class CaLamController {
     private CaLamForm view;
     private CaLamDAO cl_dao = new CaLamDAO();
     private NhanVienDAO nv_dao = new NhanVienDAO();
+    private Nhanvien nv;
 
     public CaLamController(CaLamForm view)
     {
         this.view = view;
+        this.nv = view.getNhanvien();
         LoadTable();
         LoadComboBox();
         ResetValue();
@@ -138,6 +140,10 @@ public class CaLamController {
 
     private void btnThemClick()
     {
+        if(!utilities.PermissionUtil.isAllowedToModify(nv, view))
+        {
+            return;
+        }
         ResetValue();
 
         view.getBtnLuu().setEnabled(true);
@@ -203,6 +209,14 @@ public class CaLamController {
 
     private void btnSua()
     {
+        if(!utilities.PermissionUtil.isAllowedToModify(nv, view))
+        {
+            return;
+        }
+        if (view.getModel().getRowCount() == 0) {
+            JOptionPane.showMessageDialog(view, "Chưa có dữ liệu", "Thông báo", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
         String maca = view.getTxtMaCa().getText().trim();
         String ngay = view.getTxtNgayLam().getText().trim();
         if(maca.isEmpty())
@@ -244,6 +258,14 @@ public class CaLamController {
 
     private void btnXoa()
     {
+        if(!utilities.PermissionUtil.isAllowedToModify(nv, view))
+        {
+            return;
+        }
+        if (view.getModel().getRowCount() == 0) {
+            JOptionPane.showMessageDialog(view, "Chưa có dữ liệu", "Thông báo", JOptionPane.PLAIN_MESSAGE);
+            return;
+        }
         String maca = view.getTxtMaCa().getText().trim();
         if(maca.isEmpty())
         {

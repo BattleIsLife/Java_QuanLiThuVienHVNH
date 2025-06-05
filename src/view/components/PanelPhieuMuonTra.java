@@ -19,7 +19,10 @@ public class PanelPhieuMuonTra extends JPanel {
 		FlatLightLaf.setup();
 		setBounds(new Rectangle(0, 0, 1000, 599));
 		setLayout(new BorderLayout(0, 0));
-
+		if(!utilities.PermissionUtil.isAllowedToViewAsNhanvien(nv, this))
+        {
+            return;
+        }
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane);
 

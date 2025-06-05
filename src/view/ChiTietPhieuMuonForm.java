@@ -213,8 +213,8 @@ public class ChiTietPhieuMuonForm extends JPanel {
     }
 
     private void btnThem_Click() {
-        if (!utilities.PermissionUtil.isAllowedToModify(Nhanvien, this))
-            return;
+        // if (!utilities.PermissionUtil.isAllowedToModify(Nhanvien, this))
+        //     return;
         ResetValue();
         txtMaPhieuMuon.setText("");
         txtMaPhieuMuon.setEnabled(true);
