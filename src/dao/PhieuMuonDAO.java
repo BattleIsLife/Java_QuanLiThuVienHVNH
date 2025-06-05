@@ -28,9 +28,9 @@ public class PhieuMuonDAO extends BaseDAO<PhieuMuonModel> {
         List<PhieuMuonDTO> list = new ArrayList<>();
         String sql = "SELECT pm.Maphieumuon, pm.Ngaymuon, pm.Hantrasach, " +
                 "nm.Tennguoimuon AS TenNguoiMuon, nv.Tennhanvien AS TenNhanVien " +
-                "FROM tblphieumuon pm " +
-                "JOIN tblnguoimuon nm ON pm.Manguoimuon = nm.Manguoimuon " +
-                "JOIN tblnhanvien nv ON pm.Manhanvien = nv.Manhanvien";
+                "FROM tblPhieuMuon pm " +
+                "JOIN tblNguoiMuon nm ON pm.Manguoimuon = nm.Manguoimuon " +
+                "JOIN tblNhanVien nv ON pm.Manhanvien = nv.Manhanvien";
 
         try (Connection conn = getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -91,7 +91,7 @@ public class PhieuMuonDAO extends BaseDAO<PhieuMuonModel> {
         System.out.println("Updating PhieuMuon: Maphieumuon=" + pm.getMaphieumuon() + ", Ngaymuon=" + pm.getNgaymuon() +
                 ", Hantrasach=" + pm.getHantrasach() + ", Manguoimuon=" + pm.getManguoimuon() +
                 ", Manhanvien=" + pm.getManhanvien());
-        String sql = "UPDATE tblphieumuon SET Ngaymuon = ?, Hantrasach = ?, Manguoimuon = ?, Manhanvien = ? WHERE Maphieumuon = ?";
+        String sql = "UPDATE tblPhieuMuon SET Ngaymuon = ?, Hantrasach = ?, Manguoimuon = ?, Manhanvien = ? WHERE Maphieumuon = ?";
         int rowsAffected = update(sql, new Timestamp(pm.getNgaymuon().getTime()),
                 new Date(pm.getHantrasach().getTime()),
                 pm.getManguoimuon(), pm.getManhanvien(), pm.getMaphieumuon());
@@ -102,20 +102,20 @@ public class PhieuMuonDAO extends BaseDAO<PhieuMuonModel> {
     }
 
     public PhieuMuonModel selectById(String maphieumuon) {
-        String sql = "SELECT * FROM tblphieumuon WHERE Maphieumuon = ?";
+        String sql = "SELECT * FROM tblPhieuMuon WHERE Maphieumuon = ?";
         return selectById(sql, maphieumuon);
     }
 
     public void them(PhieuMuonModel pm) {
 
-        String sql = "INSERT INTO tblphieumuon (Maphieumuon, Ngaymuon, Hantrasach, Manguoimuon, Manhanvien) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblPhieuMuon (Maphieumuon, Ngaymuon, Hantrasach, Manguoimuon, Manhanvien) VALUES (?, ?, ?, ?, ?)";
         insert(sql, pm.getMaphieumuon(), new Timestamp(pm.getNgaymuon().getTime()),
                 new Date(pm.getHantrasach().getTime()), pm.getManguoimuon(), pm.getManhanvien());
     }
 
     public void xoa(String maphieumuon) {
 
-        String sql = "DELETE FROM tblphieumuon WHERE Maphieumuon = ?";
+        String sql = "DELETE FROM tblPhieuMuon WHERE Maphieumuon = ?";
         delete(sql, maphieumuon);
     }
 }

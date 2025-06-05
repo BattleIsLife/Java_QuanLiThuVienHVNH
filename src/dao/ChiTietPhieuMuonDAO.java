@@ -10,24 +10,24 @@ import java.util.List;
 public class ChiTietPhieuMuonDAO extends BaseDAO<ChiTietPhieuMuonModel> {
 
     public void them(ChiTietPhieuMuonModel ctm) {
-        String sql = "INSERT INTO tblchitietphieumuon (Maphieumuon, Masach, Soluongmuon) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tblChiTietPhieuMuon (Maphieumuon, Masach, Soluongmuon) VALUES (?, ?, ?)";
         insert(sql, ctm.getMaphieumuon(), ctm.getMasach(), ctm.getSoluongmuon());
     }
 
     public void xoa(String maphieumuon, String masach) {
-        String sql = "DELETE FROM tblchitietphieumuon WHERE Maphieumuon = ? and Masach = ?";
+        String sql = "DELETE FROM tblChiTietPhieuMuon WHERE Maphieumuon = ? and Masach = ?";
         delete(sql, maphieumuon, masach);
     }
 
     public void sua(ChiTietPhieuMuonModel ctm) {
-        String sql = "UPDATE tblchitietphieumuon SET  Soluongmuon = ? WHERE Maphieumuon = ? AND Masach = ?";
+        String sql = "UPDATE tblChiTietPhieuMuon SET  Soluongmuon = ? WHERE Maphieumuon = ? AND Masach = ?";
         update(sql, ctm.getSoluongmuon(), ctm.getMaphieumuon(), ctm.getMasach());
     }
 
     public List<ChiTietPhieuMuonDTO> getAll() {
         List<ChiTietPhieuMuonDTO> list = new ArrayList<>();
         String sql = "SELECT c.Maphieumuon, c.Masach, s.Tensach, c.Soluongmuon " +
-                "FROM tblchitietphieumuon c JOIN tblSach s ON c.Masach = s.Masach";
+                "FROM tblChiTietPhieuMuon c JOIN tblSach s ON c.Masach = s.Masach";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -45,12 +45,12 @@ public class ChiTietPhieuMuonDAO extends BaseDAO<ChiTietPhieuMuonModel> {
     }
 
     public void xoaChiTietPhieuMuon(String maphieumuon) {
-        String sql = "DELETE FROM tblchitietphieumuon WHERE Maphieumuon = ?";
+        String sql = "DELETE FROM tblChiTietPhieuMuon WHERE Maphieumuon = ?";
         delete(sql, maphieumuon);
     }
 
     public ChiTietPhieuMuonModel findbyId(String maphieumuon, String masach) {
-        String sql = "SELECT * FROM tblchitietphieumuon WHERE Maphieumuon = ? AND Masach = ?";
+        String sql = "SELECT * FROM tblChiTietPhieuMuon WHERE Maphieumuon = ? AND Masach = ?";
         return selectById(sql, maphieumuon, masach);
     }
 

@@ -18,25 +18,10 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
         return insert(sql, nhanvien.getMaNhanVien(), nhanvien.getTenNhanVien(), nhanvien.getNgaySinh(), nhanvien.getGioiTinh(),
                 nhanvien.getDiaChi(), nhanvien.getEmail(), nhanvien.getSDT(), nhanvien.getChucVu(), nhanvien.getMatKhau(), nhanvien.getQuyenHan().toString());
     }
-
-    public Nhanvien selectById(String maNhanVien) {
-        String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien = ?";
-        return selectById(sql, maNhanVien);
-    }
-    public List<Nhanvien> getAll() {
-        String sql = "SELECT * FROM tblNhanVien"; 
-        return getAll(sql);
-    }
     
     public List<Nhanvien> timKiemBangTenOrMa(String text) {
         String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien LIKE CONCAT('%', ?, '%') OR Tennhanvien LIKE CONCAT('%', ?, '%')"; 
         return getAll(sql, text, text);
-    }
-    
-    public Nhanvien findByCredentials(String email,String password) {
-    	String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien = ? AND Matkhau = ?";
-    	Nhanvien nhanvien =findByCredentials(sql, email, password);
-    	return  nhanvien;
     }
     
     public int xoa(String maNhanVien) {
@@ -66,28 +51,28 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
     }
 
     public List<Nhanvien> getAll() {
-        String sql = "SELECT * FROM tblnhanvien";
+        String sql = "SELECT * FROM tblNhanVien";
         return getAll(sql);
     }
 
     public Nhanvien selectById(String maNhanvien) {
-        String sql = "SELECT * FROM tblnhanvien WHERE Manhanvien = ?";
+        String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien = ?";
         return selectById(sql, maNhanvien);
     }
 
     public Nhanvien selectByTen(String tenNhanvien) {
-        String sql = "SELECT * FROM tblnhanvien WHERE Tennhanvien = ?";
+        String sql = "SELECT * FROM tblNhanVien WHERE Tennhanvien = ?";
         return selectById(sql, tenNhanvien); // Sử dụng selectById vì logic tương tự
     }
 
     public Nhanvien findByCredentials(String email, String password) {
-        String sql = "SELECT * FROM tblnhanvien WHERE Manhanvien = ? AND Matkhau = ?";
+        String sql = "SELECT * FROM tblNhanVien WHERE Manhanvien = ? AND Matkhau = ?";
         Nhanvien nhanvien = findByCredentials(sql, email, password);
         return nhanvien;
     }
 
     public boolean themNhanVien(Nhanvien nv) {
-        String sql = "INSERT INTO tblnhanvien (Manhanvien, Tennhanvien, Matkhau) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tblNhanVien (Manhanvien, Tennhanvien, Matkhau) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -105,12 +90,12 @@ public class NhanVienDAO extends BaseDAO<Nhanvien> {
     }
 
     public Nhanvien findByEmail(String email) {
-        String sql = "SELECT * FROM tblnhanvien WHERE Email = ?";
+        String sql = "SELECT * FROM tblNhanVien WHERE Email = ?";
         return selectById(sql, email);
     }
 
     public boolean updatePassword(String email, String newPassword) {
-        String sql = "UPDATE tblnhanvien SET Matkhau = ? WHERE Email = ?";
+        String sql = "UPDATE tblNhanVien SET Matkhau = ? WHERE Email = ?";
         int rowsAffected = update(sql, newPassword, email);
         return rowsAffected > 0;
     }

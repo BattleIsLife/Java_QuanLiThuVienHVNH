@@ -142,7 +142,7 @@ public class NguoiMuonController {
         if (!validateFormInputs()) return;
 
         Nguoimuon nm = getNguoiMuonFromForm();
-        if (dao.findByMa(nm.getMaNguoiMuon()) != null) {
+        if (dao.selectById(nm.getMaNguoiMuon()) != null) {
             JOptionPane.showMessageDialog(view, "Mã người mượn đã tồn tại!");
             return;
         }
@@ -195,7 +195,7 @@ public class NguoiMuonController {
     private void searchNguoiMuon() {
         String keyword = JOptionPane.showInputDialog(view, "Nhập từ khóa tìm kiếm (Mã hoặc Tên):");
         if (keyword != null && !keyword.trim().isEmpty()) {
-            List<Nguoimuon> list = dao.findByKeyword(keyword);
+            List<Nguoimuon> list = dao.selectByKeyword(keyword);
             DefaultTableModel model = view.getModel();
             model.setRowCount(0);
             for (Nguoimuon nm : list) {
