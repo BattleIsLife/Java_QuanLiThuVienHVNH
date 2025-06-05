@@ -1,69 +1,47 @@
 package view;
 
-import java.awt.EventQueue;
+import javax.swing.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+import dao.NhanVienDAO;
+import model.Nhanvien;
+import model.PermissionLevel;
 
-import javax.swing.JTextField;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-import component.RoundedTextField;
-import javax.swing.JSeparator;
+import javax.imageio.ImageIO;
+
 public class RegisterForm extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel PanelLogin;
-	private JTextField txtEmail;
-	private JTextField txtPassword;
+    private static final long serialVersionUID = 1L;
+    private JPanel PanelLogin;
+    private JTextField txtMaNhanVien;
+    private JTextField txtTenNguoiDung;
+    private JPasswordField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterForm frame = new RegisterForm();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                RegisterForm frame = new RegisterForm();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	
-	  public RegisterForm() {
+    public RegisterForm() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
-        PanelLogin = new JPanel() {
+        setTitle("Register Form");
 
+        PanelLogin = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-        
                     Image img = ImageIO.read(new File("src/resource/picture/library.png"));
                     Image scaledImage = img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
                     g.drawImage(scaledImage, 0, 0, null);
@@ -71,90 +49,129 @@ public class RegisterForm extends JFrame {
                     e.printStackTrace();
                 }
             }
-
         };
-        PanelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(PanelLogin);
-        PanelLogin.setLayout(null);
 
+        PanelLogin.setLayout(null);
+        setContentPane(PanelLogin);
+
+        // LEFT PANEL
         JPanel panelLeft = new JPanel();
         panelLeft.setBounds(52, 119, 434, 467);
         panelLeft.setBorder(BorderFactory.createEtchedBorder());
-        PanelLogin.add(panelLeft, new Integer(1));
         panelLeft.setLayout(null);
-  
+        PanelLogin.add(panelLeft);
+
+        // Logo
         ImageIcon imageIcon = new ImageIcon("src/resource/picture/logo.png");
         JLabel label = new JLabel(imageIcon);
         label.setBounds(160, 10, imageIcon.getIconWidth(), imageIcon.getIconHeight());
         panelLeft.add(label);
 
-        JLabel lblNewLabel_1 = new JLabel("Get started now");
-        lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 25));
-        lblNewLabel_1.setBounds(38, 115, 196, 46);
-        panelLeft.add(lblNewLabel_1);
+        // Title
+        JLabel lblGetStarted = new JLabel("Get started now");
+        lblGetStarted.setFont(new Font("Segoe UI", Font.BOLD, 25));
+        lblGetStarted.setBounds(38, 100, 300, 30);
+        panelLeft.add(lblGetStarted);
 
-        JLabel lblNewLabel_1_1 = new JLabel("Create an account");
-        lblNewLabel_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        lblNewLabel_1_1.setBounds(38, 148, 336, 46);
-        panelLeft.add(lblNewLabel_1_1);
+        JLabel lblCreateAccount = new JLabel("Create an account");
+        lblCreateAccount.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        lblCreateAccount.setBounds(38, 130, 300, 30);
+        panelLeft.add(lblCreateAccount);
 
         JSeparator separator = new JSeparator();
         separator.setForeground(new Color(171, 171, 171));
-        separator.setBounds(38, 204, 346, 2);
+        separator.setBounds(38, 165, 346, 2);
         panelLeft.add(separator);
 
-        JLabel lblNewLabel = new JLabel("Email");
-        lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        lblNewLabel.setBounds(38, 204, 165, 46);
-        panelLeft.add(lblNewLabel);
+        // Labels
+        JLabel lblMaNV = new JLabel("Mã nhân viên");
+        lblMaNV.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        lblMaNV.setBounds(38, 180, 200, 25);
+        panelLeft.add(lblMaNV);
+
+        txtMaNhanVien = new JTextField();
+        txtMaNhanVien.setBounds(38, 210, 346, 27);
+        panelLeft.add(txtMaNhanVien);
+
+        JLabel lblTenND = new JLabel("Tên người dùng");
+        lblTenND.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        lblTenND.setBounds(38, 245, 200, 25);
+        panelLeft.add(lblTenND);
+
+        txtTenNguoiDung = new JTextField();
+        txtTenNguoiDung.setBounds(38, 275, 346, 27);
+        panelLeft.add(txtTenNguoiDung);
 
         JLabel lblPassword = new JLabel("Password");
         lblPassword.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
-        lblPassword.setBounds(38, 268, 165, 46);
+        lblPassword.setBounds(38, 310, 200, 25);
         panelLeft.add(lblPassword);
 
-        txtEmail = new JTextField();
-        txtEmail.setBounds(38, 242, 346, 27);
-        panelLeft.add(txtEmail);
-        txtEmail.setColumns(10);
-
-        txtPassword = new JTextField();
-        txtPassword.setColumns(10);
-        txtPassword.setBounds(38, 303, 346, 27);
+        txtPassword = new JPasswordField();
+        txtPassword.setBounds(38, 340, 346, 27);
         panelLeft.add(txtPassword);
 
-        JButton btnLogin = new JButton("Login");
-        btnLogin.setBackground(new Color(20, 250, 118));
-        btnLogin.setForeground(new Color(0, 0, 0));
-        btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        btnLogin.setBounds(38, 370, 346, 34);
+        // Register Button
+        JButton btnRegister = new JButton("Register");
+        btnRegister.setBackground(new Color(20, 250, 118));
+        btnRegister.setForeground(Color.BLACK);
+        btnRegister.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        btnRegister.setBounds(38, 385, 346, 34);
+        panelLeft.add(btnRegister);
+
+        // Already have account
+        JLabel lblLoginPrompt = new JLabel("Already have an account?");
+        lblLoginPrompt.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblLoginPrompt.setBounds(97, 430, 141, 20);
+        panelLeft.add(lblLoginPrompt);
+
+        JLabel btnLogin = new JLabel("Login");
+        btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnLogin.setBounds(233, 430, 74, 20);
+        btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         panelLeft.add(btnLogin);
 
-        JLabel lblNewLabel_2 = new JLabel("Don't have an account?");
-        lblNewLabel_2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblNewLabel_2.setBounds(97, 426, 141, 34);
-        panelLeft.add(lblNewLabel_2);
-
-        JLabel btnRegister = new JLabel("Register");
-        btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnRegister.setBounds(233, 437, 74, 13);
-        panelLeft.add(btnRegister);
-        btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-       
-
-        btnRegister.addMouseListener(new MouseAdapter() {
+        // Dummy Login click event (navigate to login screen - TO DO)
+        btnLogin.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                try {
-                    LoginForm login = new LoginForm();
-                    login.setVisible(true);
+                LoginForm loginForm = new LoginForm();
+                loginForm.setVisible(true);
+
+                dispose();
+            }
+        });
+
+        // Dummy Register Button
+        btnRegister.addActionListener(e -> {
+            String maNV = txtMaNhanVien.getText().trim();
+            String tenNguoiDung = txtTenNguoiDung.getText().trim();
+            String password = new String(txtPassword.getPassword()).trim();
+
+            if (maNV.isEmpty() || tenNguoiDung.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Cảnh báo",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                Nhanvien nv = new Nhanvien();
+                nv.setMaNhanVien(maNV);
+                nv.setTenNhanVien(tenNguoiDung);
+                nv.setMatKhau(password);
+
+                // Mặc định quyền hạn là NONE
+                NhanVienDAO dao = new NhanVienDAO();
+
+                if (dao.themNhanVien(nv)) {
+                    JOptionPane.showMessageDialog(this, "Đăng ký thành công!", "Thông báo",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    LoginForm loginForm = new LoginForm();
+                    loginForm.setVisible(true);
+
                     dispose();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Không mở được link");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại hoặc lỗi hệ thống!", "Lỗi",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
     }
 }

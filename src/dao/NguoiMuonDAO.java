@@ -1,59 +1,36 @@
 package dao;
 
-import java.sql.*;
-import java.util.ArrayList;
+import model.Nguoimuon;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
-import model.Nguoimuon;
+public class NguoiMuonDAO extends BaseDAO<Nguoimuon> {
 
-public class NguoiMuonDAO extends BaseDAO<Nguoimuon>{
-    private Connection conn;
-    
-    // Lấy tất cả người mượn
+    @Override
+    protected Nguoimuon mapRow(ResultSet rs) throws SQLException {
+        Nguoimuon nm = new Nguoimuon();
+        nm.setMaNguoiMuon(rs.getString("Manguoimuon"));
+        nm.setTenNguoiMuon(rs.getString("Tennguoimuon"));
+        nm.setGioiTinh(rs.getString("Gioitinh"));
+        nm.setSDT(rs.getString("SDT"));
+        nm.setDiaChi(rs.getString("Diachi"));
+        nm.setEmail(rs.getString("Email"));
+        return nm;
+    }
+
     public List<Nguoimuon> getAll() {
-        List<Nguoimuon> list = new ArrayList<>();
-        String sql = "SELECT * FROM tblNguoiMuon";
+        String sql = "SELECT * FROM tblnguoimuon";
         return getAll(sql);
     }
 
-    // Tìm người mượn theo mã
-    public Nguoimuon findByMa(String ma) {
-        String sql = "SELECT * FROM tblNguoiMuon WHERE Manguoimuon = ?";
-        return selectById(sql, ma);
+    public Nguoimuon selectById(String maNguoimuon) {
+        String sql = "SELECT * FROM tblnguoimuon WHERE Manguoimuon = ?";
+        return selectById(sql, maNguoimuon);
     }
 
-    // Thêm mới người mượn
-    public int insert(Nguoimuon nm) {
-        String sql = "INSERT INTO tblNguoiMuon VALUES (?, ?, ?, ?, ?, ?)";
-        return insert(sql, nm.getMaNguoiMuon(), nm.getTenNguoiMuon(), nm.getGioiTinh(), nm.getSDT(), nm.getDiaChi(), nm.getEmail());
+    public Nguoimuon selectByTen(String tenNguoimuon) {
+        String sql = "SELECT * FROM tblnguoimuon WHERE Tennguoimuon = ?";
+        return selectById(sql, tenNguoimuon); // Sử dụng selectById vì logic tương tự
     }
-
-    // Cập nhật thông tin người mượn
-    public int update(Nguoimuon nm) {
-        String sql = "UPDATE tblNguoiMuon SET Tennguoimuon = ?, Gioitinh = ?, SDT = ?, Diachi = ?, Email = ? WHERE Manguoimuon = ?";
-        return insert(sql, nm.getTenNguoiMuon(), nm.getGioiTinh(), nm.getSDT(), nm.getDiaChi(), nm.getEmail(), nm.getMaNguoiMuon());
-    }
-
-    // Xóa người mượn theo mã
-    public int delete(String ma) {
-        String sql = "DELETE FROM tblNguoiMuon WHERE Manguoimuon = ?";
-        return delete(sql, ma);
-    }
-
-    // Tìm kiếm người mượn theo mã hoặc tên (keyword)
-    public List<Nguoimuon> findByKeyword(String keyword) {
-        String sql = "SELECT * FROM tblNguoiMuon WHERE Manguoimuon LIKE CONCAT('%', ?, '%') OR Tennguoimuon LIKE CONCAT('%', ?, '%')";
-        return getAll(sql, keyword, keyword);
-    }
-
-	@Override
-	protected Nguoimuon mapRow(ResultSet rs) throws SQLException {
-		return new Nguoimuon(
-				rs.getString("Manguoimuon"),
-				rs.getString("Tennguoimuon"),
-				rs.getString("Gioitinh"),
-				rs.getString("SDT"),
-				rs.getString("Diachi"),
-				rs.getString("Email"));
-	}
 }

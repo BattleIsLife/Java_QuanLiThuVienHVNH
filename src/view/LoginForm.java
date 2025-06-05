@@ -13,10 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import model.Nhanvien;
 import service.NhanVienService;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -35,12 +33,8 @@ public class LoginForm extends JFrame {
     private JPanel PanelLogin;
     private JTextField txtEmail;
     private JTextField txtPassword;
-
     private NhanVienService nhanVienService;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -54,20 +48,15 @@ public class LoginForm extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public LoginForm() {
         nhanVienService = new NhanVienService();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
         PanelLogin = new JPanel() {
-
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-
                     Image img = ImageIO.read(new File("src/resource/picture/library.png"));
                     Image scaledImage = img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
                     g.drawImage(scaledImage, 0, 0, null);
@@ -75,7 +64,6 @@ public class LoginForm extends JFrame {
                     e.printStackTrace();
                 }
             }
-
         };
         PanelLogin.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(PanelLogin);
@@ -87,7 +75,6 @@ public class LoginForm extends JFrame {
         PanelLogin.add(panelLeft, new Integer(1));
         panelLeft.setLayout(null);
 
-        // Thêm logo vào bên trái
         ImageIcon imageIcon = new ImageIcon("src/resource/picture/logo.png");
         JLabel label = new JLabel(imageIcon);
         label.setBounds(160, 10, imageIcon.getIconWidth(), imageIcon.getIconHeight());
@@ -132,22 +119,20 @@ public class LoginForm extends JFrame {
 
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { // Thay 'Click' bằng 'ActionEvent'
+            public void actionPerformed(ActionEvent e) {
                 String email = txtEmail.getText();
                 String pass = txtPassword.getText();
-
                 Nhanvien nv = nhanVienService.findByCredentials(email, pass);
-
                 if (nv != null) {
+                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                     MainApplication main = new MainApplication(nv);
                     main.setVisible(true);
-                    dispose(); // ẩn login window
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Tên đăng nhập hoặc mật khẩu không đúng !!!");
                 }
             }
         });
-
         btnLogin.setBackground(new Color(20, 250, 118));
         btnLogin.setForeground(new Color(0, 0, 0));
         btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
@@ -162,13 +147,7 @@ public class LoginForm extends JFrame {
         JLabel btnRegister = new JLabel("Register");
         btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnRegister.setBounds(233, 437, 74, 13);
-        panelLeft.add(btnRegister);
         btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JLabel lblNewLabel_3 = new JLabel("Forgot password?");
-        lblNewLabel_3.setBounds(263, 340, 121, 20);
-        panelLeft.add(lblNewLabel_3);
-
         btnRegister.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -180,5 +159,23 @@ public class LoginForm extends JFrame {
                 }
             }
         });
+        panelLeft.add(btnRegister);
+
+        JLabel btnForgotPassword = new JLabel("Forgot password?");
+        btnForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        btnForgotPassword.setBounds(263, 340, 121, 20);
+        btnForgotPassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnForgotPassword.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    ForgotPasswordForm forgotForm = new ForgotPasswordForm();
+                    forgotForm.setVisible(true);
+                    dispose();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Không mở được form quên mật khẩu");
+                }
+            }
+        });
+        panelLeft.add(btnForgotPassword);
     }
 }
