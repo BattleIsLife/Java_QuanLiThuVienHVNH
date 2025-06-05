@@ -35,18 +35,18 @@ public class LoginForm extends JFrame {
     private JTextField txtPassword;
     private NhanVienService nhanVienService;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    LoginForm frame = new LoginForm();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     EventQueue.invokeLater(new Runnable() {
+    //         public void run() {
+    //             try {
+    //                 LoginForm frame = new LoginForm();
+    //                 frame.setVisible(true);
+    //             } catch (Exception e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     });
+    // }
 
     public LoginForm() {
         nhanVienService = new NhanVienService();
@@ -177,5 +177,6 @@ public class LoginForm extends JFrame {
             }
         });
         panelLeft.add(btnForgotPassword);
+        this.setVisible(true);
     }
 }

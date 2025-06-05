@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import model.Nhanvien;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import view.*;
 import view.components.*;
 
 public class MainApplication extends JFrame {

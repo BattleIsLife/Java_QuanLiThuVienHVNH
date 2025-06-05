@@ -27,7 +27,7 @@ public class PanelNhanVien extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
+		JPanel panel_2 = new view.CaLamForm(nv);
 		tabbedPane.addTab("Ca làm", null, panel_2, null);
 		
 		JPanel panel = new view.NhanVienForm(nv);
