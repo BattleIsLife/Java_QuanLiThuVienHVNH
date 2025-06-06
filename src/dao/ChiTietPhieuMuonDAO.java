@@ -55,14 +55,14 @@ public class ChiTietPhieuMuonDAO extends BaseDAO<ChiTietPhieuMuonModel> {
     }
 
     public boolean checkBookAvailability(String masach, int soluongmuon) {
-        String sql = "SELECT Soluong FROM tblsach WHERE Masach = ?";
+        String sql = "SELECT Soluong FROM tblSach WHERE Masach = ?";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, masach);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int available = rs.getInt("Soluong");
                 System.err.println("Available quantity for book " + masach + ": " + available);
-                return soluongmuon >= available;
+                return soluongmuon <= available;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class ChiTietPhieuMuonDAO extends BaseDAO<ChiTietPhieuMuonModel> {
     }
 
     public void updateBookQuantity(String masach, int soluongmuon, boolean isAdding) {
-        String sql = "UPDATE tblsach SET Soluong = Soluong " + (isAdding ? "-" : "+") + " ? WHERE Masach = ?";
+        String sql = "UPDATE tblSach SET Soluong = Soluong " + (isAdding ? "-" : "+") + " ? WHERE Masach = ?";
         update(sql, soluongmuon, masach);
     }
 
