@@ -28,6 +28,8 @@ public class MainApplication extends JFrame {
 		setBounds(100, 100, 1300, 636);
 		getContentPane().setLayout(null);
 
+		this.setTitle("Quản lý thư viện");
+
 		// Tạo CardLayout + Content Panel
 		CardLayout cardLayout = new CardLayout();
 		JPanel contentPanel = new JPanel(cardLayout);

@@ -57,6 +57,7 @@ public class LoginForm extends JFrame {
         nhanVienService = new NhanVienService();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
+        this.setTitle("Đăng nhập");
         FlatLightLaf.setup();
         PanelLogin = new JPanel() {
             @Override
