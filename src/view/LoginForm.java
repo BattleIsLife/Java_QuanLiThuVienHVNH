@@ -13,11 +13,16 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.formdev.flatlaf.FlatLightLaf;
+
 import model.Nhanvien;
 import service.NhanVienService;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -52,6 +57,7 @@ public class LoginForm extends JFrame {
         nhanVienService = new NhanVienService();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1102, 669);
+        FlatLightLaf.setup();
         PanelLogin = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -177,6 +183,7 @@ public class LoginForm extends JFrame {
             }
         });
         panelLeft.add(btnForgotPassword);
+        SwingUtilities.updateComponentTreeUI(this);
         this.setVisible(true);
     }
 }
