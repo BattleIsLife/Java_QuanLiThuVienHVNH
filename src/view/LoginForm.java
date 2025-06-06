@@ -31,7 +31,7 @@ public class LoginForm extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel PanelLogin;
-    private JTextField txtEmail;
+    private JTextField txtMaNV;
     private JTextField txtPassword;
     private NhanVienService nhanVienService;
 
@@ -107,10 +107,10 @@ public class LoginForm extends JFrame {
         lblPassword.setBounds(38, 268, 165, 46);
         panelLeft.add(lblPassword);
 
-        txtEmail = new JTextField();
-        txtEmail.setBounds(38, 242, 346, 27);
-        panelLeft.add(txtEmail);
-        txtEmail.setColumns(10);
+        txtMaNV = new JTextField();
+        txtMaNV.setBounds(38, 242, 346, 27);
+        panelLeft.add(txtMaNV);
+        txtMaNV.setColumns(10);
 
         txtPassword = new JTextField();
         txtPassword.setColumns(10);
@@ -120,9 +120,9 @@ public class LoginForm extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String email = txtEmail.getText();
+                String userid = txtMaNV.getText();
                 String pass = txtPassword.getText();
-                Nhanvien nv = nhanVienService.findByCredentials(email, pass);
+                Nhanvien nv = nhanVienService.findByCredentials(userid, pass);
                 if (nv != null) {
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                     MainApplication main = new MainApplication(nv);
