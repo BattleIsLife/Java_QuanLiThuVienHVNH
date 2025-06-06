@@ -62,7 +62,7 @@ public class ChiTietPhieuMuonDAO extends BaseDAO<ChiTietPhieuMuonModel> {
             if (rs.next()) {
                 int available = rs.getInt("Soluong");
                 System.err.println("Available quantity for book " + masach + ": " + available);
-                return soluongmuon <= available;
+                return soluongmuon >= available;
             }
         } catch (SQLException e) {
             e.printStackTrace();

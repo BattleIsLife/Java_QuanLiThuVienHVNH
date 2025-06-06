@@ -146,27 +146,27 @@ public class LoginForm extends JFrame {
         btnLogin.setBounds(38, 370, 346, 34);
         panelLeft.add(btnLogin);
 
-        JLabel lblNewLabel_2 = new JLabel("Don't have an account?");
-        lblNewLabel_2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblNewLabel_2.setBounds(97, 426, 141, 34);
-        panelLeft.add(lblNewLabel_2);
+        // JLabel lblNewLabel_2 = new JLabel("Don't have an account?");
+        // lblNewLabel_2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        // lblNewLabel_2.setBounds(97, 426, 141, 34);
+        // panelLeft.add(lblNewLabel_2);
 
-        JLabel btnRegister = new JLabel("Register");
-        btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnRegister.setBounds(233, 437, 74, 13);
-        btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnRegister.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    RegisterForm register = new RegisterForm();
-                    register.setVisible(true);
-                    dispose();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Không mở được link");
-                }
-            }
-        });
-        panelLeft.add(btnRegister);
+        // JLabel btnRegister = new JLabel("Register");
+        // btnRegister.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        // btnRegister.setBounds(233, 437, 74, 13);
+        // btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // btnRegister.addMouseListener(new MouseAdapter() {
+        //     public void mouseClicked(MouseEvent e) {
+        //         try {
+        //             RegisterForm register = new RegisterForm();
+        //             register.setVisible(true);
+        //             dispose();
+        //         } catch (Exception ex) {
+        //             JOptionPane.showMessageDialog(null, "Không mở được link");
+        //         }
+        //     }
+        // });
+        // panelLeft.add(btnRegister);
 
         JLabel btnForgotPassword = new JLabel("Forgot password?");
         btnForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 12));
